@@ -1,13 +1,26 @@
-<game title="XMLTest" width="1024" height="768" fps="50">
-  <assetpath>assets/</assetpath>
-  <scene name="scene1">
-    <assets>
-      <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
-      <asset type="sprite" id="landscape">landscape.jpg</asset>
-      <asset type="sprite" id="bird">bird.png</asset>
-      <asset type="audio" id="shot">shot.wav</asset>
-    </assets>
-  </scene>
-  <scene name ="scene2">
-  </scene>
-</game>
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <title>BestPointNClick</title>
+  <window width="1024" height="768" fps="50"></window>
+  <resources path="assets/">
+    <asset type="img" ID="spr_Door">wrestler.jpg</asset>
+    <asset type="sound" ID="sfx_Door">door.wav</asset>
+  </resources>
+  <scenes>
+    <scene name="scene1">
+        <gameObject id="door">
+          <components>
+            <spriteRenderer assetID="spr_Door">doorRenderer</spriteRenderer>
+            <audio assetID="sfx_Door"></audio>
+            <action></action>
+          </components>
+        </gameObject>
+        <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
+        <asset type="sprite" id="landscape">landscape.jpg</asset>
+        <asset type="sprite" id="bird">bird.png</asset>
+        <asset type="audio" id="shot">shot.wav</asset>
+    </scene>
+    <scene name ="scene2">
+    </scene>
+  </scenes>
+</data>

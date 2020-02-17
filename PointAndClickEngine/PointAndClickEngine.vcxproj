@@ -146,6 +146,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="game.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
