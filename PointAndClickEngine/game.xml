@@ -1,0 +1,13 @@
+<game title="XMLTest" width="1024" height="768" fps="50">
+  <assetpath>assets/</assetpath>
+  <scene name="scene1">
+    <assets>
+      <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
+      <asset type="sprite" id="landscape">landscape.jpg</asset>
+      <asset type="sprite" id="bird">bird.png</asset>
+      <asset type="audio" id="shot">shot.wav</asset>
+    </assets>
+  </scene>
+  <scene name ="scene2">
+  </scene>
+</game>
