@@ -2,11 +2,9 @@
 
 
 
-GameManager::GameManager()
-{
+GameManager::GameManager() {
 }
 
 
-GameManager::~GameManager()
-{
+GameManager::~GameManager() {
 }

@@ -1,13 +1,11 @@
 #pragma once
 #include <list>
-#include "Asset.h"
+#include "Assets.h"
 
-class GameManager
-{
-private:
-	std::list<Asset> assetList;
-
+class GameManager {
 public:
+	std::list<Asset*>* asset_list_;
+
 	GameManager();
 	~GameManager();
 };

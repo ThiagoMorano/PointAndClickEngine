@@ -3,8 +3,8 @@
   <title>BestPointNClick</title>
   <window width="1024" height="768" fps="50"></window>
   <resources path="assets/">
-    <asset type="img" ID="spr_Door">wrestler.jpg</asset>
-    <asset type="sound" ID="sfx_Door">door.wav</asset>
+    <asset type="image" id="spr_Door">wrestler.jpg</asset>
+    <asset type="sound" id="sfx_Door">door.wav</asset>
   </resources>
   <scenes>
     <scene name="scene1">

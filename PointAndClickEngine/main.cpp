@@ -13,23 +13,20 @@ ResourceManager* resourceManager = new ResourceManager("game.xml");
 
 GameManager* gameManager = new GameManager();
 
-int main()
-{
+int main() {
 	GameConfig* gameConfig = resourceManager->GetGameConfig();
 
-	sf::RenderWindow window(sf::VideoMode(gameConfig->screenWidth, gameConfig->screenHeight), gameConfig->applicationName);
+	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	gameManager->assetList = resourceManager->GetAssetsList();
+	gameManager->asset_list_ = resourceManager->GetAssetList();
 
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
 
-	while (window.isOpen())
-	{
+	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
+		while (window.pollEvent(event)) {
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
