@@ -1,28 +1,28 @@
 #include "ResourceManager.h"
 
-rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* nodeTag) {
+rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
 	for (rapidxml::xml_node<>* childNode = node->first_node(); childNode != NULL; childNode = childNode->next_sibling()) {
-		if (strcmp(childNode->name(), nodeTag) == 0) return childNode;
+		if (strcmp(childNode->name(), node_tag) == 0) return childNode;
 	}
 	return NULL;
 }
 
-rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attributeName) {
+rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name) {
 	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
-		if (strcmp(attribute->name(), attributeName) == 0) return attribute;
+		if (strcmp(attribute->name(), attribute_name) == 0) return attribute;
 	}
 	return NULL;
 }
 
-char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attributeName) {
+char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) {
 	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
-		if (strcmp(attribute->name(), attributeName) == 0) return attribute->value();
+		if (strcmp(attribute->name(), attribute_name) == 0) return attribute->value();
 	}
 	return NULL;
 }
 
-ResourceManager::ResourceManager(std::string gameFileName) {
-	LoadData(gameFileName);
+ResourceManager::ResourceManager(std::string game_file_name) {
+	LoadData(game_file_name);
 }
 
 ResourceManager::~ResourceManager() {
@@ -30,13 +30,17 @@ ResourceManager::~ResourceManager() {
 	delete(asset_list_);
 }
 
-void ResourceManager::LoadData(std::string gameFileName) {
-	std::ifstream xmlFile(gameFileName, std::ios::binary);
+void ResourceManager::LoadData(std::string game_file_name) {
+	std::ifstream xmlFile(game_file_name, std::ios::binary);
 	buffer_ = new std::vector<char>((std::istreambuf_iterator<char>(xmlFile)), std::istreambuf_iterator<char>());
 	buffer_->push_back('\0');
 	xmlFile.close();
 
 	xml_document_.parse<0>(&(*buffer_)[0]);
+}
+
+std::string ResourceManager::GetResourcesPath() {
+	return resources_path_;
 }
 
 GameConfig* ResourceManager::GetGameConfig() {
@@ -68,8 +72,11 @@ GameConfig* ResourceManager::GetGameConfig() {
 	return gameConfig;
 }
 
-std::list<Asset*>* ResourceManager::GetAssetList() {
-	LoadAssetList();
+
+std::list<Asset*>*  ResourceManager::GetAssetList() {
+	if (asset_list_ == NULL) {
+		LoadAssetList();
+	}
 	return asset_list_;
 }
 
@@ -77,31 +84,39 @@ void ResourceManager::LoadAssetList() {
 	asset_list_ = new std::list<Asset*>();
 
 
+	rapidxml::xml_node<>* root_node = xml_document_.first_node();
+	rapidxml::xml_node<>* node_iterator;
+	rapidxml::xml_attribute<>* attribute_iterator;
 
-	rapidxml::xml_node<>* rootNode = xml_document_.first_node();
-	rapidxml::xml_node<>* nodePointer;
-	rapidxml::xml_attribute<>* attributePointer;
+	node_iterator = FindChildNode(root_node, "resources");
+	if (node_iterator != NULL) {
 
-	nodePointer = FindChildNode(rootNode, "resources");
-	if (nodePointer != NULL) {
+		attribute_iterator = FindAttribute(node_iterator, "path");
+		if (attribute_iterator != NULL) {
+			resources_path_ = attribute_iterator->value();
 
-		attributePointer = FindAttribute(nodePointer, "path");
-		if (attributePointer != NULL) {
-			resources_path_ = attributePointer->value();
+			AssetFactory asset_factory;
+			AssetData* new_asset_data;
+			Asset* new_asset;
+			for (node_iterator = node_iterator->first_node(); node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
 
-			AssetFactory assetFactory;
-			AssetData* newAssetData;
-			Asset* newAsset;
-			for (nodePointer = nodePointer->first_node(); nodePointer != NULL; nodePointer = nodePointer->next_sibling()) {
+				new_asset_data = new AssetData();
+				new_asset_data->type_ = GetAttributeValue(node_iterator, "type");
+				new_asset_data->id_ = GetAttributeValue(node_iterator, "id");
+				new_asset_data->path_ = resources_path_ + node_iterator->value();
 
-				newAssetData = new AssetData();
-				newAssetData->type_ = GetAttributeValue(nodePointer, "type");
-				newAssetData->id_ = GetAttributeValue(nodePointer, "id");
-				newAssetData->path_ = nodePointer->value();
-
-				newAsset = assetFactory.CreateAsset(newAssetData);
-				asset_list_->push_back(newAsset);
+				new_asset = asset_factory.CreateAsset(new_asset_data);
+				asset_list_->push_back(new_asset);
 			}
 		}
 	}
+}
+
+Asset* ResourceManager::GetAssetOfID(std::string id) {
+	for (Asset* const& iterator : *asset_list_) {
+		if (iterator->id_.compare(id) == 0)
+			return iterator;
+	}
+
+	return NULL;
 }

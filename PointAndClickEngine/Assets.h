@@ -17,7 +17,7 @@ public:
 	std::string id_;
 
 	Asset();
-	~Asset();
+	virtual ~Asset();
 };
 
 class TextureAsset : public Asset {
@@ -29,12 +29,12 @@ public:
 	~TextureAsset();
 };
 
-class SoundAsset : public Asset {
+class SoundBufferAsset : public Asset {
 public:
-	sf::Sound* sound_;
+	sf::SoundBuffer* sound_buffer_;
 
-	SoundAsset();
-	SoundAsset(sf::Sound*);
-	~SoundAsset();
+	SoundBufferAsset();
+	SoundBufferAsset(sf::SoundBuffer*);
+	~SoundBufferAsset();
 };
 

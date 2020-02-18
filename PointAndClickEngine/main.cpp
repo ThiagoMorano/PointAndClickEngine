@@ -21,8 +21,13 @@ int main() {
 
 	gameManager->asset_list_ = resourceManager->GetAssetList();
 
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	sf::Sprite testing_sprite;
+	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resourceManager->GetAssetOfID("spr_Door"));
+	testing_sprite.setTexture(*(texture_asset->texture_));
+
+	sf::Sound testing_sound;
+	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resourceManager->GetAssetOfID("sfx_Door"));
+	testing_sound.setBuffer(*(sound_buffer_asset->sound_buffer_));
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -34,7 +39,10 @@ int main() {
 
 
 		window.clear();
-		window.draw(shape);
+		if (testing_sound.getStatus() != sf::SoundSource::Status::Playing) {
+			testing_sound.play();
+		}
+		window.draw(testing_sprite);
 		window.display();
 	}
 

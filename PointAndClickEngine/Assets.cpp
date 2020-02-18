@@ -20,11 +20,11 @@ TextureAsset::~TextureAsset() {
 #pragma endregion
 
 #pragma region SoundAsset
-SoundAsset::SoundAsset() {}
-SoundAsset::SoundAsset(sf::Sound* sound) : sound_(sound) {
+SoundBufferAsset::SoundBufferAsset() {}
+SoundBufferAsset::SoundBufferAsset(sf::SoundBuffer* sound) : sound_buffer_(sound) {
 }
 
-SoundAsset::~SoundAsset() {
-	delete(sound_);
+SoundBufferAsset::~SoundBufferAsset() {
+	delete(sound_buffer_);
 }
 #pragma endregion

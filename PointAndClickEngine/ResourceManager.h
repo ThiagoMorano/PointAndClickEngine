@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <iterator>
+#include <algorithm>
 #include "rapidxml-1.13/rapidxml.hpp"
 
 #include "AssetFactory.h"
@@ -20,24 +22,22 @@ public:
 
 class ResourceManager {
 public:
-	std::string game_title_;
-	std::string assets_path_;
-
 	ResourceManager(std::string);
 	~ResourceManager();
 
 	void LoadData(std::string);
 
 	GameConfig* GetGameConfig();
-
+	std::string GetResourcesPath();
 	std::list<Asset*>* GetAssetList();
+	Asset* GetAssetOfID(std::string);
 
 private:
 	std::vector<char>* buffer_;
 	rapidxml::xml_document<> xml_document_;
 
-	std::string resources_path_;
 	std::list<Asset*>* asset_list_;
+	std::string resources_path_;
 
 	void LoadAssetList();
 };
