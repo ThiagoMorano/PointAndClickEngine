@@ -7,15 +7,20 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 
 #include "ResourceManager.h"
+#include "GameManager.h"
 
-ResourceManager* resourcesManager = new ResourceManager("game.xml");
+ResourceManager* resourceManager = new ResourceManager("game.xml");
+
+GameManager* gameManager = new GameManager();
 
 int main()
 {
-	GameConfig* gameConfig = resourcesManager->GetGameConfig();
+	GameConfig* gameConfig = resourceManager->GetGameConfig();
 
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screenWidth, gameConfig->screenHeight), gameConfig->applicationName);
 	window.setFramerateLimit(gameConfig->fps);
+
+	gameManager->assetList = resourceManager->GetAssetsList();
 
 	sf::CircleShape shape(100.f);
 	shape.setFillColor(sf::Color::Green);
@@ -28,6 +33,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+
 
 		window.clear();
 		window.draw(shape);
