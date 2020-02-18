@@ -10,12 +10,12 @@ Asset::~Asset() {
 #pragma endregion
 
 #pragma region SpriteAsset
-SpriteAsset::SpriteAsset() {}
-SpriteAsset::SpriteAsset(sf::Sprite* sprite) : sprite_(sprite) {
+TextureAsset::TextureAsset() {}
+TextureAsset::TextureAsset(sf::Texture* texture) : texture_(texture) {
 }
 
-SpriteAsset::~SpriteAsset() {
-	delete(sprite_);
+TextureAsset::~TextureAsset() {
+	delete(texture_);
 }
 #pragma endregion
 

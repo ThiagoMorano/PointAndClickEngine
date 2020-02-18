@@ -20,13 +20,13 @@ public:
 	~Asset();
 };
 
-class SpriteAsset : public Asset {
+class TextureAsset : public Asset {
 public:
-	sf::Sprite* sprite_;
+	sf::Texture* texture_;
 
-	SpriteAsset();
-	SpriteAsset(sf::Sprite*);
-	~SpriteAsset();
+	TextureAsset();
+	TextureAsset(sf::Texture*);
+	~TextureAsset();
 };
 
 class SoundAsset : public Asset {
