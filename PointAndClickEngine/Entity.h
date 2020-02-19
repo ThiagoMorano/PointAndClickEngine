@@ -12,8 +12,10 @@ public:
 
 class Entity {
 public:
-	void AddComponent(IComponent*);
+	~Entity();
 
+	void AddComponent(IComponent*);
+	IComponent* GetComponent(ComponentType);
 
 private:
 	std::string id_;

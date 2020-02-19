@@ -37,4 +37,3 @@ public:
 	SoundBufferAsset(sf::SoundBuffer*);
 	~SoundBufferAsset();
 };
-

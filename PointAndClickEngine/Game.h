@@ -18,7 +18,12 @@ private:
 	sf::RenderWindow* window_;
 	ResourceManager* resourceManager_;
 
+
+	std::list<Entity*> entities_;
 	std::list<IRenderable*> activeRenderers_;
+
+
+	AudioSource* audio_source;
 
 
 	void Update();
