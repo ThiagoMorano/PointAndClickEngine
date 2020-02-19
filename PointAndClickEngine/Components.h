@@ -20,6 +20,7 @@ public:
 
 	virtual ~SpriteRenderer();
 	virtual ComponentType GetComponentType();
+
 	virtual void Render(sf::RenderWindow* window);
 };
 

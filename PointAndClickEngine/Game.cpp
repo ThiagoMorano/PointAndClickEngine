@@ -6,6 +6,8 @@ Game::~Game() {
 	for (it = entities_.begin(); it != entities_.end(); it++) {
 		delete(*it);
 	}
+
+	delete(audio_source);
 }
 
 Game::Game() : window_(NULL), resourceManager_(NULL) {
@@ -47,6 +49,9 @@ void Game::Init(sf::RenderWindow* window, ResourceManager* resourceManager) {
 
 	audio_source = new AudioSource();
 	audio_source->sound_ = testing_sound;
+
+
+	testing_audio_entity_->HasComponent<AudioSource>();
 }
 
 void Game::GameLoop() {

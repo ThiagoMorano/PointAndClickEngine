@@ -15,7 +15,15 @@ public:
 	~Entity();
 
 	void AddComponent(IComponent*);
+
 	IComponent* GetComponent(ComponentType);
+	template <typename T> IComponent* GetComponent(ComponentType) {
+		return NULL;
+	}
+
+	template <typename T> bool HasComponent() {
+		return false;
+	}
 
 private:
 	std::string id_;
