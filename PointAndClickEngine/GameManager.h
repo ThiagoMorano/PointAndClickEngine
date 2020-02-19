@@ -4,8 +4,6 @@
 
 class GameManager {
 public:
-	std::list<Asset*>* asset_list_;
-
 	GameManager();
 	~GameManager();
 };

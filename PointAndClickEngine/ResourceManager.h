@@ -25,7 +25,7 @@ public:
 	ResourceManager(std::string);
 	~ResourceManager();
 
-	void LoadData(std::string);
+	void LoadFileData(std::string);
 
 	GameConfig* GetGameConfig();
 	std::string GetResourcesPath();

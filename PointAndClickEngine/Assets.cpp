@@ -10,7 +10,7 @@ Asset::~Asset() {
 #pragma endregion
 
 #pragma region SpriteAsset
-TextureAsset::TextureAsset() {}
+TextureAsset::TextureAsset() : texture_(NULL) {}
 TextureAsset::TextureAsset(sf::Texture* texture) : texture_(texture) {
 }
 
@@ -20,7 +20,7 @@ TextureAsset::~TextureAsset() {
 #pragma endregion
 
 #pragma region SoundAsset
-SoundBufferAsset::SoundBufferAsset() {}
+SoundBufferAsset::SoundBufferAsset() : sound_buffer_(NULL) {}
 SoundBufferAsset::SoundBufferAsset(sf::SoundBuffer* sound) : sound_buffer_(sound) {
 }
 

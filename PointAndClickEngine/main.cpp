@@ -9,25 +9,26 @@
 #include "ResourceManager.h"
 #include "GameManager.h"
 
-ResourceManager* resourceManager = new ResourceManager("game.xml");
+ResourceManager resourceManager("game.xml");
+GameManager gameManager;
 
-GameManager* gameManager = new GameManager();
 
 int main() {
-	GameConfig* gameConfig = resourceManager->GetGameConfig();
+
+	GameConfig* gameConfig = resourceManager.GetGameConfig();
 
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	gameManager->asset_list_ = resourceManager->GetAssetList();
-
 	sf::Sprite testing_sprite;
-	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resourceManager->GetAssetOfID("spr_Door"));
+	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resourceManager.GetAssetOfID("spr_Door"));
 	testing_sprite.setTexture(*(texture_asset->texture_));
 
 	sf::Sound testing_sound;
-	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resourceManager->GetAssetOfID("sfx_Door"));
+	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resourceManager.GetAssetOfID("sfx_Door"));
 	testing_sound.setBuffer(*(sound_buffer_asset->sound_buffer_));
+
+
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -39,12 +40,17 @@ int main() {
 
 
 		window.clear();
+
 		if (testing_sound.getStatus() != sf::SoundSource::Status::Playing) {
 			testing_sound.play();
 		}
 		window.draw(testing_sprite);
 		window.display();
 	}
+
+	delete(texture_asset);
+	delete(sound_buffer_asset);
+	delete(gameConfig);
 
 	return 0;
 }

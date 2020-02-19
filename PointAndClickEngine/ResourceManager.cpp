@@ -22,7 +22,8 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 }
 
 ResourceManager::ResourceManager(std::string game_file_name) {
-	LoadData(game_file_name);
+	LoadFileData(game_file_name);
+	LoadAssetList();
 }
 
 ResourceManager::~ResourceManager() {
@@ -30,7 +31,7 @@ ResourceManager::~ResourceManager() {
 	delete(asset_list_);
 }
 
-void ResourceManager::LoadData(std::string game_file_name) {
+void ResourceManager::LoadFileData(std::string game_file_name) {
 	std::ifstream xmlFile(game_file_name, std::ios::binary);
 	buffer_ = new std::vector<char>((std::istreambuf_iterator<char>(xmlFile)), std::istreambuf_iterator<char>());
 	buffer_->push_back('\0');
@@ -73,7 +74,7 @@ GameConfig* ResourceManager::GetGameConfig() {
 }
 
 
-std::list<Asset*>*  ResourceManager::GetAssetList() {
+std::list<Asset*>* ResourceManager::GetAssetList() {
 	if (asset_list_ == NULL) {
 		LoadAssetList();
 	}
@@ -117,6 +118,12 @@ Asset* ResourceManager::GetAssetOfID(std::string id) {
 		if (iterator->id_.compare(id) == 0)
 			return iterator;
 	}
+
+	//std::list<Asset*>::iterator iterator;
+	//for (iterator = asset_list_->begin(); iterator != asset_list_->end(); iterator++) {
+	//	if ((*iterator)->id_.compare(id) == 0)
+	//		return *iterator;
+	//}
 
 	return NULL;
 }
