@@ -21,14 +21,14 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 	return NULL;
 }
 
-ResourceManager::ResourceManager(std::string game_file_name) {
-	LoadFileData(game_file_name);
-	LoadAssetList();
-}
-
 ResourceManager::~ResourceManager() {
 	delete(buffer_);
 	delete(asset_list_);
+}
+
+ResourceManager::ResourceManager(std::string game_file_name) {
+	LoadFileData(game_file_name);
+	LoadAssetList();
 }
 
 void ResourceManager::LoadFileData(std::string game_file_name) {
@@ -38,47 +38,6 @@ void ResourceManager::LoadFileData(std::string game_file_name) {
 	xmlFile.close();
 
 	xml_document_.parse<0>(&(*buffer_)[0]);
-}
-
-std::string ResourceManager::GetResourcesPath() {
-	return resources_path_;
-}
-
-GameConfig* ResourceManager::GetGameConfig() {
-	GameConfig* gameConfig = new GameConfig();
-
-	rapidxml::xml_node<>* rootNode = xml_document_.first_node();
-	rapidxml::xml_node<>* nodePointer;
-	rapidxml::xml_attribute<>* attributePointer;
-
-	nodePointer = FindChildNode(rootNode, "title");
-	if (nodePointer != NULL)
-		gameConfig->application_name_ = nodePointer->value();
-
-	nodePointer = FindChildNode(rootNode, "window");
-	if (nodePointer != NULL) {
-		attributePointer = FindAttribute(nodePointer, "width");
-		if (attributePointer != NULL)
-			gameConfig->screen_width_ = atoi(attributePointer->value());
-
-		attributePointer = FindAttribute(nodePointer, "height");
-		if (attributePointer != NULL)
-			gameConfig->screen_height_ = atoi(attributePointer->value());
-
-		attributePointer = FindAttribute(nodePointer, "fps");
-		if (attributePointer != NULL)
-			gameConfig->fps = atoi(attributePointer->value());
-	}
-
-	return gameConfig;
-}
-
-
-std::list<Asset*>* ResourceManager::GetAssetList() {
-	if (asset_list_ == NULL) {
-		LoadAssetList();
-	}
-	return asset_list_;
 }
 
 void ResourceManager::LoadAssetList() {
@@ -113,17 +72,52 @@ void ResourceManager::LoadAssetList() {
 	}
 }
 
+std::list<Asset*>* ResourceManager::GetAssetList() {
+	if (asset_list_ == NULL) {
+		LoadAssetList();
+	}
+	return asset_list_;
+}
+
 Asset* ResourceManager::GetAssetOfID(std::string id) {
-	for (Asset* const& iterator : *asset_list_) {
-		if (iterator->id_.compare(id) == 0)
-			return iterator;
+	std::list<Asset*>::iterator iterator;
+	for (iterator = asset_list_->begin(); iterator != asset_list_->end(); iterator++) {
+		if ((*iterator)->id_.compare(id) == 0)
+			return *iterator;
 	}
 
-	//std::list<Asset*>::iterator iterator;
-	//for (iterator = asset_list_->begin(); iterator != asset_list_->end(); iterator++) {
-	//	if ((*iterator)->id_.compare(id) == 0)
-	//		return *iterator;
-	//}
-
 	return NULL;
+}
+
+GameConfig* ResourceManager::GetGameConfig() {
+	GameConfig* gameConfig = new GameConfig();
+
+	rapidxml::xml_node<>* rootNode = xml_document_.first_node();
+	rapidxml::xml_node<>* nodePointer;
+	rapidxml::xml_attribute<>* attributePointer;
+
+	nodePointer = FindChildNode(rootNode, "title");
+	if (nodePointer != NULL)
+		gameConfig->application_name_ = nodePointer->value();
+
+	nodePointer = FindChildNode(rootNode, "window");
+	if (nodePointer != NULL) {
+		attributePointer = FindAttribute(nodePointer, "width");
+		if (attributePointer != NULL)
+			gameConfig->screen_width_ = atoi(attributePointer->value());
+
+		attributePointer = FindAttribute(nodePointer, "height");
+		if (attributePointer != NULL)
+			gameConfig->screen_height_ = atoi(attributePointer->value());
+
+		attributePointer = FindAttribute(nodePointer, "fps");
+		if (attributePointer != NULL)
+			gameConfig->fps = atoi(attributePointer->value());
+	}
+
+	return gameConfig;
+}
+
+std::string ResourceManager::GetResourcesPath() {
+	return resources_path_;
 }

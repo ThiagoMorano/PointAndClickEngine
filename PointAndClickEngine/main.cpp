@@ -7,10 +7,10 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 
 #include "ResourceManager.h"
-#include "GameManager.h"
+#include "Game.h"
 
 ResourceManager resourceManager("game.xml");
-GameManager gameManager;
+Game game;
 
 
 int main() {
@@ -19,6 +19,8 @@ int main() {
 
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
+
+	game.Init(&window);
 
 	sf::Sprite testing_sprite;
 	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resourceManager.GetAssetOfID("spr_Door"));
@@ -38,6 +40,7 @@ int main() {
 		}
 
 
+		//game.GameLoop();
 
 		window.clear();
 

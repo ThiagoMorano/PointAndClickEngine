@@ -32,6 +32,6 @@ void Game::Render() {
 void Game::RenderObjects() {
 	std::list<IRenderable*>::iterator iterator;
 	for (iterator = activeRenderers_.begin(); iterator != activeRenderers_.end(); iterator++) {
-
+		(*iterator)->Render(window_);
 	}
 }

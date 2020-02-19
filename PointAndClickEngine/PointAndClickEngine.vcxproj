@@ -147,8 +147,9 @@
   <ItemGroup>
     <ClCompile Include="AssetFactory.cpp" />
     <ClCompile Include="Assets.cpp" />
-    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -157,7 +158,8 @@
   <ItemGroup>
     <ClInclude Include="Assets.h" />
     <ClInclude Include="AssetFactory.h" />
-    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="ResourceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
