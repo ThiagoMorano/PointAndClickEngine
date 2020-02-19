@@ -12,8 +12,7 @@ public:
 
 class Entity {
 public:
-
-	AddComponent();
+	void AddComponent(IComponent*);
 
 
 private:

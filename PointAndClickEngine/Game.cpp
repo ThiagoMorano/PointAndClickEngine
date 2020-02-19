@@ -22,9 +22,12 @@ void Game::Init(sf::RenderWindow* window, ResourceManager* resourceManager) {
 	Entity* testing_entity;
 	testing_entity = entityFactory.CreateEntity(NULL);
 
-	testing_entity->sprite_ = testing_sprite;
+	SpriteRenderer* sprite_renderer = new SpriteRenderer();
+	sprite_renderer->sprite_ = testing_sprite;
 
-	activeRenderers_.push_back((IRenderable*)(testing_entity));
+	testing_entity->AddComponent((IComponent*)sprite_renderer);
+
+	activeRenderers_.push_back((IRenderable*)(sprite_renderer));
 }
 
 void Game::GameLoop() {
@@ -38,14 +41,13 @@ void Game::Update() {
 
 void Game::Render() {
 	window_->clear();
-
-	RenderObjects();
-
+	RenderActiveObjects();
 	window_->display();
 }
 
-void Game::RenderObjects() {
+void Game::RenderActiveObjects() {
 	std::list<IRenderable*>::iterator iterator;
+	//This iteration doesn't have to be backwards as no object would be destroyed during the render cycle
 	for (iterator = activeRenderers_.begin(); iterator != activeRenderers_.end(); iterator++) {
 		(*iterator)->Render(window_);
 	}

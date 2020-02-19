@@ -39,10 +39,6 @@ int main() {
 			testing_sound.play();
 		}
 		game.GameLoop();
-
-		//window.clear();
-		//window.draw(testing_sprite);
-		//window.display();
 	}
 
 	delete(sound_buffer_asset);

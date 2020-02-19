@@ -24,6 +24,6 @@ private:
 	void Update();
 	void Render();
 
-	void RenderObjects();
+	void RenderActiveObjects();
 };
 

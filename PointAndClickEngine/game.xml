@@ -8,17 +8,17 @@
   </resources>
   <scenes>
     <scene name="scene1">
-        <gameObject id="door">
-          <components>
-            <spriteRenderer assetID="spr_Door">doorRenderer</spriteRenderer>
-            <audio assetID="sfx_Door"></audio>
-            <action></action>
-          </components>
-        </gameObject>
-        <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
-        <asset type="sprite" id="landscape">landscape.jpg</asset>
-        <asset type="sprite" id="bird">bird.png</asset>
-        <asset type="audio" id="shot">shot.wav</asset>
+      <gameObject id="door">
+        <components>
+          <spriteRenderer assetID="spr_Door">doorRenderer</spriteRenderer>
+          <audioSource assetID="sfx_Door"></audioSource>
+          <action></action>
+        </components>
+      </gameObject>
+      <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
+      <asset type="sprite" id="landscape">landscape.jpg</asset>
+      <asset type="sprite" id="bird">bird.png</asset>
+      <asset type="audio" id="shot">shot.wav</asset>
     </scene>
     <scene name ="scene2">
     </scene>

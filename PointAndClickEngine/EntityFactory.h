@@ -1,9 +1,8 @@
 #pragma once
-#include "Entities.h"
+#include "Entity.h"
 
 class EntityFactory
 {
 public:
 	Entity* CreateEntity(EntityData*);
 };
-
