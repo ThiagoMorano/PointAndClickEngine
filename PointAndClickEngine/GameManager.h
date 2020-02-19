@@ -14,7 +14,9 @@ public:
 
 private:
 	sf::RenderWindow* window_;
+
 	std::list<IRenderable*> activeRenderers_;
+
 
 
 	void Update();

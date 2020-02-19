@@ -20,11 +20,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	game.Init(&window);
-
-	sf::Sprite testing_sprite;
-	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resourceManager.GetAssetOfID("spr_Door"));
-	testing_sprite.setTexture(*(texture_asset->texture_));
+	game.Init(&window, &resourceManager);
 
 	sf::Sound testing_sound;
 	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resourceManager.GetAssetOfID("sfx_Door"));
@@ -39,19 +35,16 @@ int main() {
 				window.close();
 		}
 
-
-		//game.GameLoop();
-
-		window.clear();
-
 		if (testing_sound.getStatus() != sf::SoundSource::Status::Playing) {
 			testing_sound.play();
 		}
-		window.draw(testing_sprite);
-		window.display();
+		game.GameLoop();
+
+		//window.clear();
+		//window.draw(testing_sprite);
+		//window.display();
 	}
 
-	delete(texture_asset);
 	delete(sound_buffer_asset);
 	delete(gameConfig);
 
