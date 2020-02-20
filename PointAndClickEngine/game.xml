@@ -15,12 +15,6 @@
           <action></action>
         </components>
       </gameObject>
-      <asset type="sprite" id="crosshair">fadenkreuz-transparent.png</asset>
-      <asset type="sprite" id="landscape">landscape.jpg</asset>
-      <asset type="sprite" id="bird">bird.png</asset>
-      <asset type="audio" id="shot">shot.wav</asset>
-    </scene>
-    <scene name ="scene2">
     </scene>
   </scenes>
 </data>

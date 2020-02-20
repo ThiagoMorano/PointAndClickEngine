@@ -10,6 +10,7 @@
 #include "rapidxml-1.13/rapidxml.hpp"
 
 #include "AssetFactory.h"
+#include "SceneFactory.h"
 
 
 class GameConfig {
@@ -29,16 +30,23 @@ public:
 
 	GameConfig* GetGameConfig();
 	std::string GetResourcesPath();
+
 	std::list<Asset*>* GetAssetList();
 	Asset* GetAssetOfID(std::string);
+
+	std::list<Scene*>* GetSceneList();
+
 
 private:
 	std::vector<char>* buffer_;
 	rapidxml::xml_document<> xml_document_;
 
-	std::list<Asset*>* asset_list_;
 	std::string resources_path_;
+	std::list<Asset*>* asset_list_;
+	std::list<Scene*>* scene_list_;
 
 	void LoadAssetList();
+
+	void LoadSceneList();
 };
 

@@ -10,13 +10,16 @@ Game::~Game() {
 	delete(audio_source);
 }
 
-Game::Game() : window_(NULL), resourceManager_(NULL) {
+Game::Game() : window_(NULL), resourceManager_(NULL), currentScene(NULL) {
 }
 
 
 void Game::Init(sf::RenderWindow* window, ResourceManager* resourceManager) {
 	window_ = window;
 	resourceManager_ = resourceManager;
+
+	scenes_ = resourceManager_->GetSceneList();
+	//currentScene = scenes_->front();
 
 	//testing code
 	EntityFactory entityFactory;
@@ -49,9 +52,6 @@ void Game::Init(sf::RenderWindow* window, ResourceManager* resourceManager) {
 
 	audio_source = new AudioSource();
 	audio_source->sound_ = testing_sound;
-
-
-	testing_audio_entity_->HasComponent<AudioSource>();
 }
 
 void Game::GameLoop() {

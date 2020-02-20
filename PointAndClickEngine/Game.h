@@ -4,6 +4,7 @@
 #include "ResourceManager.h"
 #include "Graphics.h"
 #include "EntityFactory.h"
+#include "Scene.h"
 
 class Game {
 public:
@@ -18,10 +19,11 @@ private:
 	sf::RenderWindow* window_;
 	ResourceManager* resourceManager_;
 
+	std::list<Scene*>* scenes_;
+	Scene* currentScene;
 
 	std::list<Entity*> entities_;
 	std::list<IRenderable*> activeRenderers_;
-
 
 	AudioSource* audio_source;
 

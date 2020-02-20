@@ -6,11 +6,11 @@ enum ComponentType {
 	kSpriteRenderer, kAudioSource
 };
 
-
 class IComponent
 {
 public:
 	virtual ~IComponent() {};
+	virtual void Update() = 0;
 	virtual ComponentType GetComponentType() = 0;
 };
 
@@ -19,6 +19,7 @@ public:
 	sf::Sprite* sprite_;
 
 	virtual ~SpriteRenderer();
+	virtual void Update() {};
 	virtual ComponentType GetComponentType();
 
 	virtual void Render(sf::RenderWindow* window);
@@ -29,6 +30,7 @@ public:
 	sf::Sound* sound_;
 
 	virtual ~AudioSource();
+	virtual void Update() {};
 	virtual ComponentType GetComponentType();
 
 	void Play();

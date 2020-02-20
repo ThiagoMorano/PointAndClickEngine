@@ -8,6 +8,13 @@ Entity::~Entity() {
 	}
 }
 
+void Entity::Update() {
+	std::list<IComponent*>::iterator it;
+	for (it = components_.begin(); it != components_.end(); it++) {
+		(*it)->Update();
+	}
+}
+
 void Entity::AddComponent(IComponent* component) {
 	components_.push_back(component);
 }

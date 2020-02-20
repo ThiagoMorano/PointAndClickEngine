@@ -121,3 +121,29 @@ GameConfig* ResourceManager::GetGameConfig() {
 std::string ResourceManager::GetResourcesPath() {
 	return resources_path_;
 }
+
+
+
+std::list<Scene*>* ResourceManager::GetSceneList() {
+	if (scene_list_ == NULL) {
+		LoadSceneList();
+	}
+	return scene_list_;
+}
+
+void ResourceManager::LoadSceneList() {
+	std::list<Scene*>* scene_list = new std::list<Scene*>();
+
+	rapidxml::xml_node<>* root_node = xml_document_.first_node();
+	rapidxml::xml_node<>* node_iterator;
+	rapidxml::xml_attribute<>* attribute_iterator;
+
+	node_iterator = FindChildNode(root_node, "scenes");
+	if (node_iterator != NULL) {
+		node_iterator = FindChildNode(node_iterator, "scene");
+
+		if (node_iterator != NULL) {
+
+		}
+	}
+}
