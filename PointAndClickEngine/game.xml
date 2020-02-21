@@ -3,15 +3,25 @@
   <title>BestPointNClick</title>
   <window width="1024" height="768" fps="50"></window>
   <resources path="assets/">
-    <asset type="image" id="spr_Door">wrestler.jpg</asset>
+    <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
+    <asset type="image" id="spr_Key">key.png</asset>
   </resources>
   <scenes>
     <scene id="scene1">
-      <gameObject id="door">
+      <gameObject id="wrestler">
         <components>
-          <spriteRenderer assetID="spr_Door">doorRenderer</spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
+        </components>
+      </gameObject>
+      <gameObject id="key">
+        <components>
+          <spriteRenderer assetID="spr_Wrestler">keyRenderer</spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="key">
+        <components>
+          <spriteRenderer assetID="spr_Key">keyRenderer</spriteRenderer>
         </components>
       </gameObject>
     </scene>
