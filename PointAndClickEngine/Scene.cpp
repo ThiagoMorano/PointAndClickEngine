@@ -17,6 +17,7 @@ void Scene::Update() {
 }
 
 void Scene::Render(sf::RenderWindow* window) {
+	//This iteration doesn't have to be backwards as no object would be destroyed during the render cycle
 	std::list<IRenderable*>::iterator it;
 	for (it = active_renderers_.begin(); it != active_renderers_.end(); it++) {
 		(*it)->Render(window);

@@ -14,7 +14,7 @@ ResourceManager::~ResourceManager() {
 	delete(buffer_);
 
 	DeleteAssetList();
-	//DeleteSceneList();
+	DeleteSceneList();
 }
 
 void ResourceManager::DeleteAssetList() {

@@ -2,14 +2,6 @@
 
 EntityFactory::EntityFactory(ResourceManager* res_manager) : resource_manager_(res_manager) {}
 
-Entity* EntityFactory::CreateEntity(EntityData* entityData) {
-	Entity* entity = NULL;
-	//if (entityData->type_.compare("sprite") == 0) {
-	entity = new Entity();
-	//}
-	return entity;
-}
-
 rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
 	for (rapidxml::xml_node<>* child_node = node->first_node(); child_node != NULL; child_node = child_node->next_sibling()) {
 		if (strcmp(child_node->name(), node_tag) == 0) return child_node;
@@ -47,10 +39,10 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 	ComponentType type = ParseComponentType(type_name);
 	switch (type) {
 	case ComponentType::kSpriteRenderer:
-		component = (IComponent*)InstantiateSpriteRenderer(component_node);
+		component = dynamic_cast<IComponent*>(InstantiateSpriteRenderer(component_node));
 		break;
 	case ComponentType::kAudioSource:
-		component = (IComponent*)InstantiateAudioSource(component_node);
+		component = dynamic_cast<IComponent*>(InstantiateAudioSource(component_node));
 		break;
 	}
 
@@ -72,7 +64,7 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* n
 
 	std::string asset_id = FindAttribute(node, "assetID")->value();
 
-	TextureAsset* texture_asset = (TextureAsset*)resource_manager_->GetAssetOfID(asset_id);
+	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
 	sprite->setTexture(*(texture_asset->texture_));
 	sprite_renderer->sprite_ = sprite;
 
@@ -85,7 +77,7 @@ AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* node) {
 
 	std::string asset_id = FindAttribute(node, "assetID")->value();
 
-	SoundBufferAsset* sound_buffer_asset = (SoundBufferAsset*)resource_manager_->GetAssetOfID(asset_id);
+	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resource_manager_->GetAssetOfID(asset_id));
 	sound->setBuffer(*(sound_buffer_asset->sound_buffer_));
 	audio_source->sound_ = sound;
 

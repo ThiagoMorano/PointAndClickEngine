@@ -30,7 +30,6 @@ public:
 
 	virtual ~AudioSource();
 	virtual void Update();
-	//	virtual void Render(sf::RenderWindow*) {};
 	virtual ComponentType GetComponentType();
 
 	void Play();
