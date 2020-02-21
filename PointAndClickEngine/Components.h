@@ -14,7 +14,7 @@ public:
 	virtual ComponentType GetComponentType() = 0;
 };
 
-class SpriteRenderer : public IRenderable, public IComponent {
+class SpriteRenderer : public virtual IComponent, public virtual IRenderable {
 public:
 	sf::Sprite* sprite_;
 
@@ -24,12 +24,13 @@ public:
 	virtual ComponentType GetComponentType();
 };
 
-class AudioSource : public IComponent {
+class AudioSource : public virtual IComponent {
 public:
 	sf::Sound* sound_;
 
 	virtual ~AudioSource();
 	virtual void Update();
+	//	virtual void Render(sf::RenderWindow*) {};
 	virtual ComponentType GetComponentType();
 
 	void Play();

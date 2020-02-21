@@ -9,11 +9,9 @@
 #include "ResourceManager.h"
 #include "Game.h"
 
-ResourceManager resourceManager("game.xml");
-Game game;
-
-
 int main() {
+	ResourceManager resourceManager("game.xml");
+	Game game;
 
 	GameConfig* gameConfig = resourceManager.GetGameConfig();
 
