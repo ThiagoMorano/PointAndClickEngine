@@ -23,7 +23,25 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 
 ResourceManager::~ResourceManager() {
 	delete(buffer_);
+
+	DeleteAssetList();
+	//DeleteSceneList();
+}
+
+void ResourceManager::DeleteAssetList() {
+	std::list<Asset*>::iterator it_assets;
+	for (it_assets = asset_list_->begin(); it_assets != asset_list_->end(); it_assets++) {
+		delete((*it_assets));
+	}
 	delete(asset_list_);
+}
+
+void ResourceManager::DeleteSceneList() {
+	std::list<Scene*>::iterator it_scene;
+	for (it_scene = scene_list_->begin(); it_scene != scene_list_->end(); it_scene++) {
+		delete((*it_scene));
+	}
+	delete(scene_list_);
 }
 
 ResourceManager::ResourceManager(std::string game_file_name) {
@@ -137,6 +155,8 @@ void ResourceManager::LoadSceneList() {
 	rapidxml::xml_node<>* root_node = xml_document_.first_node();
 	rapidxml::xml_node<>* node_iterator;
 	rapidxml::xml_attribute<>* attribute_iterator;
+
+	//std::list<Scene*>* 
 
 	node_iterator = FindChildNode(root_node, "scenes");
 	if (node_iterator != NULL) {

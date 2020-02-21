@@ -48,5 +48,8 @@ private:
 	void LoadAssetList();
 
 	void LoadSceneList();
+
+	void DeleteAssetList();
+	void DeleteSceneList();
 };
 
