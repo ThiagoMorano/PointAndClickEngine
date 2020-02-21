@@ -12,6 +12,8 @@ public:
 
 class Entity {
 public:
+	Entity();
+	Entity(std::string);
 	~Entity();
 
 	void Update();

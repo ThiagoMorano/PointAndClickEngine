@@ -17,15 +17,15 @@ public:
 
 private:
 	sf::RenderWindow* window_;
-	ResourceManager* resourceManager_;
+	ResourceManager* resource_manager_;
 
 	std::list<Scene*>* scenes_;
-	Scene* currentScene;
+	Scene* current_scene_;
 
-	std::list<Entity*> entities_;
-	std::list<IRenderable*> activeRenderers_;
+	//std::list<Entity*> entities_;
+	//std::list<IRenderable*> active_renderers_;
 
-	AudioSource* audio_source;
+	//AudioSource* audio_source;
 
 
 	void Update();

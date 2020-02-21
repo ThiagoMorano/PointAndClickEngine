@@ -28,3 +28,6 @@ IComponent* Entity::GetComponent(ComponentType componentType) {
 	}
 	return NULL;
 }
+
+Entity::Entity() {}
+Entity::Entity(std::string id) :id_(id) {}

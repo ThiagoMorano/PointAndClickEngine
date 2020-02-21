@@ -11,7 +11,7 @@
 
 #include "AssetFactory.h"
 #include "SceneFactory.h"
-
+#include "EntityFactory.h"
 
 class GameConfig {
 public:
@@ -46,10 +46,29 @@ private:
 	std::list<Scene*>* scene_list_;
 
 	void LoadAssetList();
-
 	void LoadSceneList();
+
+	void LoadGameObjectsIntoScene(Scene*, rapidxml::xml_node<>*);
 
 	void DeleteAssetList();
 	void DeleteSceneList();
 };
 
+
+class EntityFactory
+{
+public:
+	EntityFactory(ResourceManager*);
+
+	Entity* CreateEntity(EntityData*);
+	Entity* CreateEntity(rapidxml::xml_node<>* game_object_node);
+
+private:
+	ResourceManager* resource_manager_;
+
+	IComponent* InstantiateComponent(rapidxml::xml_node<>*);
+	ComponentType ParseComponentType(std::string);
+
+	SpriteRenderer* InstantiateSpriteRenderer(rapidxml::xml_node<>*);
+	AudioSource* InstantiateAudioSource(rapidxml::xml_node<>*);
+};

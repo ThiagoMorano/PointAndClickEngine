@@ -2,7 +2,7 @@
 #include "Graphics.h"
 #include <SFML/Audio.hpp>
 
-enum ComponentType {
+enum class ComponentType {
 	kSpriteRenderer, kAudioSource
 };
 
@@ -14,15 +14,14 @@ public:
 	virtual ComponentType GetComponentType() = 0;
 };
 
-class SpriteRenderer : public IRenderable, IComponent {
+class SpriteRenderer : public IRenderable, public IComponent {
 public:
 	sf::Sprite* sprite_;
 
 	virtual ~SpriteRenderer();
-	virtual void Update() {};
+	virtual void Render(sf::RenderWindow*);
+	virtual void Update();
 	virtual ComponentType GetComponentType();
-
-	virtual void Render(sf::RenderWindow* window);
 };
 
 class AudioSource : public IComponent {
@@ -30,7 +29,7 @@ public:
 	sf::Sound* sound_;
 
 	virtual ~AudioSource();
-	virtual void Update() {};
+	virtual void Update();
 	virtual ComponentType GetComponentType();
 
 	void Play();

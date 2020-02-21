@@ -1,18 +1,7 @@
 #include "ResourceManager.h"
 
-rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
-	for (rapidxml::xml_node<>* childNode = node->first_node(); childNode != NULL; childNode = childNode->next_sibling()) {
-		if (strcmp(childNode->name(), node_tag) == 0) return childNode;
-	}
-	return NULL;
-}
-
-rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name) {
-	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
-		if (strcmp(attribute->name(), attribute_name) == 0) return attribute;
-	}
-	return NULL;
-}
+rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag);
+rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name);
 
 char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) {
 	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
@@ -47,6 +36,7 @@ void ResourceManager::DeleteSceneList() {
 ResourceManager::ResourceManager(std::string game_file_name) {
 	LoadFileData(game_file_name);
 	LoadAssetList();
+	LoadSceneList();
 }
 
 void ResourceManager::LoadFileData(std::string game_file_name) {
@@ -150,20 +140,40 @@ std::list<Scene*>* ResourceManager::GetSceneList() {
 }
 
 void ResourceManager::LoadSceneList() {
-	std::list<Scene*>* scene_list = new std::list<Scene*>();
+	scene_list_ = new std::list<Scene*>();
 
 	rapidxml::xml_node<>* root_node = xml_document_.first_node();
 	rapidxml::xml_node<>* node_iterator;
 	rapidxml::xml_attribute<>* attribute_iterator;
 
-	//std::list<Scene*>* 
 
 	node_iterator = FindChildNode(root_node, "scenes");
 	if (node_iterator != NULL) {
-		node_iterator = FindChildNode(node_iterator, "scene");
 
-		if (node_iterator != NULL) {
+		Scene* instantiated_scene = NULL;
+		rapidxml::xml_node<>* game_object_node;
 
+		//Iterate through <scene> nodes
+		for (node_iterator = FindChildNode(node_iterator, "scene"); node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
+			instantiated_scene = new Scene();
+			instantiated_scene->id_ = FindAttribute(node_iterator, "id")->value();
+
+			game_object_node = FindChildNode(node_iterator, "gameObject");
+			if (game_object_node != NULL) {
+				LoadGameObjectsIntoScene(instantiated_scene, game_object_node);
+			}
+			scene_list_->push_back(instantiated_scene);
 		}
+	}
+}
+
+void ResourceManager::LoadGameObjectsIntoScene(Scene* scene, rapidxml::xml_node<>* game_object_node) {
+	Entity* entity_pointer;
+	EntityFactory entity_factory(&(*this));
+
+	//Iterate through <gameObject> nodes
+	for (rapidxml::xml_node<>* node_iterator = game_object_node; node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
+		entity_pointer = entity_factory.CreateEntity(node_iterator);
+		scene->AddEntity(entity_pointer);
 	}
 }

@@ -2,56 +2,57 @@
 
 
 Game::~Game() {
-	std::list<Entity*>::iterator it;
-	for (it = entities_.begin(); it != entities_.end(); it++) {
+	std::list<Scene*>::iterator it;
+	for (it = scenes_->begin(); it != scenes_->end(); it++) {
 		delete(*it);
 	}
 
-	delete(audio_source);
+	//delete(audio_source);
 }
 
-Game::Game() : window_(NULL), resourceManager_(NULL), currentScene(NULL) {
+Game::Game() : window_(NULL), resource_manager_(NULL), scenes_(NULL), current_scene_(NULL) {
 }
 
 
-void Game::Init(sf::RenderWindow* window, ResourceManager* resourceManager) {
+void Game::Init(sf::RenderWindow* window, ResourceManager* resource_manager) {
 	window_ = window;
-	resourceManager_ = resourceManager;
+	resource_manager_ = resource_manager;
 
-	scenes_ = resourceManager_->GetSceneList();
-	//currentScene = scenes_->front();
+	scenes_ = resource_manager_->GetSceneList();
+	current_scene_ = scenes_->front();
 
 	//testing code
-	EntityFactory entityFactory;
+	//EntityFactory entityFactory(resource_manager_);
 
 	//testing sprite
-	sf::Sprite* testing_sprite = new sf::Sprite();
-	TextureAsset* texture_asset = (TextureAsset*)resourceManager_->GetAssetOfID("spr_Door");
-	testing_sprite->setTexture(*(texture_asset->texture_));
+	//sf::Sprite* testing_sprite = new sf::Sprite();
+	//TextureAsset* texture_asset = (TextureAsset*)resource_manager_->GetAssetOfID("spr_Door");
+	//testing_sprite->setTexture(*(texture_asset->texture_));
 
-	Entity* testing_sprite_entity;
-	testing_sprite_entity = entityFactory.CreateEntity(NULL);
-	entities_.push_back(testing_sprite_entity);
+	//Entity* testing_sprite_entity;
+	//EntityData data;
+	//testing_sprite_entity = entityFactory.CreateEntity(&data);
+	//entities_.push_back(testing_sprite_entity);
 
-	SpriteRenderer* sprite_renderer = new SpriteRenderer();
-	sprite_renderer->sprite_ = testing_sprite;
+	//SpriteRenderer* sprite_renderer = new SpriteRenderer();
+	//sprite_renderer->sprite_ = testing_sprite;
 
-	testing_sprite_entity->AddComponent((IComponent*)sprite_renderer);
+	//testing_sprite_entity->AddComponent((IComponent*)sprite_renderer);
 
-	activeRenderers_.push_back((IRenderable*)(sprite_renderer));
+	//active_renderers_.push_back((IRenderable*)(sprite_renderer));
 
 
 	//testing audio
-	sf::Sound* testing_sound = new sf::Sound();
-	SoundBufferAsset* sound_buffer_asset = (SoundBufferAsset*)resourceManager_->GetAssetOfID("sfx_Door");
-	testing_sound->setBuffer(*(sound_buffer_asset->sound_buffer_));
+	//sf::Sound* testing_sound = new sf::Sound();
+	//SoundBufferAsset* sound_buffer_asset = (SoundBufferAsset*)resource_manager_->GetAssetOfID("sfx_Door");
+	//testing_sound->setBuffer(*(sound_buffer_asset->sound_buffer_));
 
-	Entity* testing_audio_entity_;
-	testing_audio_entity_ = entityFactory.CreateEntity(NULL);
-	entities_.push_back(testing_audio_entity_);
+	//Entity* testing_audio_entity_;
+	//testing_audio_entity_ = entityFactory.CreateEntity(&data);
+	//entities_.push_back(testing_audio_entity_);
 
-	audio_source = new AudioSource();
-	audio_source->sound_ = testing_sound;
+	//audio_source = new AudioSource();
+	//audio_source->sound_ = testing_sound;
 }
 
 void Game::GameLoop() {
@@ -60,21 +61,24 @@ void Game::GameLoop() {
 }
 
 void Game::Update() {
-	if (!audio_source->IsPlaying()) {
-		audio_source->Play();
-	}
+	current_scene_->Update();
+
+	//if (!audio_source->IsPlaying()) {
+	//	audio_source->Play();
+	//}
 }
 
 void Game::Render() {
 	window_->clear();
-	RenderActiveObjects();
+	current_scene_->Render(window_);
+	//RenderActiveObjects();
 	window_->display();
 }
 
 void Game::RenderActiveObjects() {
 	std::list<IRenderable*>::iterator iterator;
 	//This iteration doesn't have to be backwards as no object would be destroyed during the render cycle
-	for (iterator = activeRenderers_.begin(); iterator != activeRenderers_.end(); iterator++) {
-		(*iterator)->Render(window_);
-	}
+	//for (iterator = active_renderers_.begin(); iterator != active_renderers_.end(); iterator++) {
+	//	(*iterator)->Render(window_);
+	//}
 }

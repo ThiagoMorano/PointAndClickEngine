@@ -12,6 +12,10 @@ void SpriteRenderer::Render(sf::RenderWindow* window) {
 ComponentType SpriteRenderer::GetComponentType() {
 	return ComponentType::kSpriteRenderer;
 }
+
+void SpriteRenderer::Update() {
+
+}
 #pragma endregion
 
 
@@ -30,6 +34,12 @@ void AudioSource::Play() {
 
 bool AudioSource::IsPlaying() {
 	return (sound_->getStatus() == sf::SoundSource::Status::Playing);
+}
+
+void AudioSource::Update() {
+	if (!this->IsPlaying()) {
+		this->Play();
+	}
 }
 
 #pragma endregion
