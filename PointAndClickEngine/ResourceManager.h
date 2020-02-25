@@ -7,11 +7,15 @@
 #include <list>
 #include <iterator>
 #include <algorithm>
+
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "rapidxml-1.13/rapidxml.hpp"
 
-#include "AssetFactory.h"
-#include "SceneFactory.h"
-#include "EntityFactory.h"
+#include "Assets.h"
+#include "Entity.h"
+#include "Scene.h"
 
 class GameConfig {
 public:
@@ -54,13 +58,11 @@ private:
 	void DeleteSceneList();
 };
 
-
 class EntityFactory
 {
 public:
 	EntityFactory(ResourceManager*);
 
-	Entity* CreateEntity(EntityData*);
 	Entity* CreateEntity(rapidxml::xml_node<>* game_object_node);
 
 private:
@@ -71,4 +73,9 @@ private:
 
 	SpriteRenderer* InstantiateSpriteRenderer(rapidxml::xml_node<>*);
 	AudioSource* InstantiateAudioSource(rapidxml::xml_node<>*);
+};
+
+class AssetFactory {
+public:
+	Asset* CreateAsset(AssetData* assetData);
 };

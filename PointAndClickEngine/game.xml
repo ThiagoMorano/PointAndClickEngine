@@ -6,6 +6,7 @@
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
     <asset type="image" id="spr_Key">key.png</asset>
+    <asset type="sound" id="sfx_Jump">jump.wav</asset>
   </resources>
   <scenes>
     <scene id="scene1">
@@ -22,6 +23,7 @@
       <gameObject id="key">
         <components>
           <spriteRenderer assetID="spr_Key">keyRenderer</spriteRenderer>
+          <audioSource assetID="sfx_Jump"></audioSource>
         </components>
       </gameObject>
     </scene>

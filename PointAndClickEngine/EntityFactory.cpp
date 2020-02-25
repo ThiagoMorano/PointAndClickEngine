@@ -1,21 +1,11 @@
 #include "ResourceManager.h"
 
+// Forward declarations of utility functions
+rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag);
+rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name);
+
+
 EntityFactory::EntityFactory(ResourceManager* res_manager) : resource_manager_(res_manager) {}
-
-rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
-	for (rapidxml::xml_node<>* child_node = node->first_node(); child_node != NULL; child_node = child_node->next_sibling()) {
-		if (strcmp(child_node->name(), node_tag) == 0) return child_node;
-	}
-	return NULL;
-}
-
-rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name) {
-	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
-		if (strcmp(attribute->name(), attribute_name) == 0) return attribute;
-	}
-	return NULL;
-}
-
 
 Entity* EntityFactory::CreateEntity(rapidxml::xml_node<>* game_object_node) {
 	std::string id = FindAttribute(game_object_node, "id")->value();

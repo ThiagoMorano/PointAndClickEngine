@@ -154,22 +154,18 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="game.xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Assets.h" />
-    <ClInclude Include="AssetFactory.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneFactory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

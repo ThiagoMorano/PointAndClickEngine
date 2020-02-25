@@ -1,4 +1,4 @@
-#include "AssetFactory.h"
+#include "ResourceManager.h"
 
 Asset* AssetFactory::CreateAsset(AssetData* asset_data) {
 	Asset* asset = NULL;

@@ -21,15 +21,6 @@ public:
 	void AddComponent(IComponent*);
 	IComponent* GetComponent(ComponentType);
 
-	// 
-	//template <typename T> T* GetComponent(ComponentType) {
-	//	return NULL;
-	//}
-
-	//template <typename T> bool HasComponent() {
-	//	return false;
-	//}
-
 private:
 	std::string id_;
 	std::list<IComponent*> components_;

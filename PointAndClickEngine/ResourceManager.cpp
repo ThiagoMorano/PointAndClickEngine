@@ -1,7 +1,19 @@
 #include "ResourceManager.h"
 
-rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag);
-rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name);
+#pragma region Utils
+rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
+	for (rapidxml::xml_node<>* child_node = node->first_node(); child_node != NULL; child_node = child_node->next_sibling()) {
+		if (strcmp(child_node->name(), node_tag) == 0) return child_node;
+	}
+	return NULL;
+}
+
+rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name) {
+	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
+		if (strcmp(attribute->name(), attribute_name) == 0) return attribute;
+	}
+	return NULL;
+}
 
 char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) {
 	for (rapidxml::xml_attribute<>* attribute = node->first_attribute(); attribute != NULL; attribute = attribute->next_attribute()) {
@@ -9,7 +21,9 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 	}
 	return NULL;
 }
+#pragma endregion
 
+#pragma region ResourceManager
 ResourceManager::~ResourceManager() {
 	delete(buffer_);
 
@@ -177,3 +191,4 @@ void ResourceManager::LoadGameObjectsIntoScene(Scene* scene, rapidxml::xml_node<
 		scene->AddEntity(entity_pointer);
 	}
 }
+#pragma endregion
