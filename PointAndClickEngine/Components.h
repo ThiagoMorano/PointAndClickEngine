@@ -16,7 +16,7 @@ public:
 
 class CharacterController : public virtual IComponent {
 public:
-	float speed;
+	float speed_;
 
 	virtual ~CharacterController();
 	virtual void Update(sf::Transformable*);

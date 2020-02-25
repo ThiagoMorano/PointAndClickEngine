@@ -9,6 +9,8 @@
 #include "ResourceManager.h"
 #include "Game.h"
 
+sf::RenderWindow* Game::window_;
+
 int main() {
 	ResourceManager resource_manager("game.xml");
 	Game game;

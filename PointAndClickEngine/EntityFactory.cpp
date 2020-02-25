@@ -60,7 +60,7 @@ ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 CharacterController* EntityFactory::InstantiateCharacterController(rapidxml::xml_node<>* character_controller_node) {
 	CharacterController* character_controller = new CharacterController();
 
-	character_controller->speed = atof(GetAttributeValue(character_controller_node, "speed"));
+	character_controller->speed_ = atof(GetAttributeValue(character_controller_node, "speed"));
 
 	return character_controller;
 }

@@ -14,8 +14,9 @@ public:
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
 
+	static sf::RenderWindow* window_;
 private:
-	sf::RenderWindow* window_;
+
 	ResourceManager* resource_manager_;
 
 	std::list<Scene*>* scenes_;
