@@ -77,17 +77,10 @@ void ResourceManager::LoadAssetList() {
 		if (attribute_iterator != NULL) {
 			resources_path_ = attribute_iterator->value();
 
-			AssetFactory asset_factory;
-			AssetData* new_asset_data;
+			AssetFactory asset_factory(&(*this));
 			Asset* new_asset;
 			for (node_iterator = node_iterator->first_node(); node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
-
-				new_asset_data = new AssetData();
-				new_asset_data->type_ = GetAttributeValue(node_iterator, "type");
-				new_asset_data->id_ = GetAttributeValue(node_iterator, "id");
-				new_asset_data->path_ = resources_path_ + node_iterator->value();
-
-				new_asset = asset_factory.CreateAsset(new_asset_data);
+				new_asset = asset_factory.CreateAsset(node_iterator);
 				asset_list_->push_back(new_asset);
 			}
 		}

@@ -77,5 +77,13 @@ private:
 
 class AssetFactory {
 public:
-	Asset* CreateAsset(AssetData* assetData);
+	AssetFactory(ResourceManager* resource_manager);
+
+	Asset* CreateAsset(rapidxml::xml_node<>*);
+
+private:
+	ResourceManager* resource_manager_;
+
+	TextureAsset* InstantiateTextureAsset(rapidxml::xml_node<>*);
+	SoundBufferAsset* InstantiateSoundBufferAsset(rapidxml::xml_node<>*);
 };

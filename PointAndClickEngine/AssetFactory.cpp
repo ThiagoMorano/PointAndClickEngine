@@ -1,19 +1,37 @@
 #include "ResourceManager.h"
 
-Asset* AssetFactory::CreateAsset(AssetData* asset_data) {
-	Asset* asset = NULL;
+// Forward declarations of utility functions
+rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag);
+rapidxml::xml_attribute<>* FindAttribute(rapidxml::xml_node<>* node, const char* attribute_name);
+char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name);
 
-	if (asset_data->type_.compare("image") == 0) {
-		sf::Texture* new_texture = new sf::Texture();
-		new_texture->loadFromFile(asset_data->path_);
-		asset = new TextureAsset(new_texture);
+AssetFactory::AssetFactory(ResourceManager* resource_manager) : resource_manager_(resource_manager) {}
+
+Asset* AssetFactory::CreateAsset(rapidxml::xml_node<>* asset_node) {
+	std::string type = GetAttributeValue(asset_node, "type");
+
+	Asset* asset = NULL;
+	if (type.compare("image") == 0) {
+		asset = InstantiateTextureAsset(asset_node);
 	}
-	else if (asset_data->type_.compare("sound") == 0) {
-		sf::SoundBuffer* new_sound = new sf::SoundBuffer();
-		new_sound->loadFromFile(asset_data->path_);
-		asset = new SoundBufferAsset(new_sound);
+	else if (type.compare("sound") == 0) {
+		asset = InstantiateSoundBufferAsset(asset_node);
 	}
-	asset->id_ = asset_data->id_;
+
+	asset->id_ = GetAttributeValue(asset_node, "id");
 
 	return asset;
+
+}
+
+TextureAsset* AssetFactory::InstantiateTextureAsset(rapidxml::xml_node<>* asset_node) {
+	sf::Texture* new_texture = new sf::Texture();
+	new_texture->loadFromFile(resource_manager_->GetResourcesPath() + asset_node->value());
+	return new TextureAsset(new_texture);
+}
+
+SoundBufferAsset* AssetFactory::InstantiateSoundBufferAsset(rapidxml::xml_node<>* asset_node) {
+	sf::SoundBuffer* new_sound = new sf::SoundBuffer();
+	new_sound->loadFromFile(resource_manager_->GetResourcesPath() + asset_node->value());
+	return new SoundBufferAsset(new_sound);
 }
