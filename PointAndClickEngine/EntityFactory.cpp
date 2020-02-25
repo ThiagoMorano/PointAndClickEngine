@@ -31,6 +31,9 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 	std::string type_name = component_node->name();
 	ComponentType type = ParseComponentType(type_name);
 	switch (type) {
+	case ComponentType::kCharacterController:
+		component = dynamic_cast<IComponent*>(InstantiateCharacterController(component_node));
+		break;
 	case ComponentType::kSpriteRenderer:
 		component = dynamic_cast<IComponent*>(InstantiateSpriteRenderer(component_node));
 		break;
@@ -43,7 +46,10 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 }
 
 ComponentType EntityFactory::ParseComponentType(std::string type_name) {
-	if (type_name.compare("spriteRenderer") == 0) {
+	if (type_name.compare("characterController") == 0) {
+		return ComponentType::kCharacterController;
+	}
+	else if (type_name.compare("spriteRenderer") == 0) {
 		return ComponentType::kSpriteRenderer;
 	}
 	else if (type_name.compare("audioSource") == 0) {
@@ -51,11 +57,19 @@ ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 	}
 }
 
-SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* node) {
+CharacterController* EntityFactory::InstantiateCharacterController(rapidxml::xml_node<>* character_controller_node) {
+	CharacterController* character_controller = new CharacterController();
+
+	character_controller->speed = atof(GetAttributeValue(character_controller_node, "speed"));
+
+	return character_controller;
+}
+
+SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* sprite_renderer_node) {
 	SpriteRenderer* sprite_renderer = new SpriteRenderer();
 	sf::Sprite* sprite = new sf::Sprite();
 
-	std::string asset_id = FindAttribute(node, "assetID")->value();
+	std::string asset_id = GetAttributeValue(sprite_renderer_node, "assetID");
 
 	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
 	sprite->setTexture(*(texture_asset->texture_));
@@ -64,11 +78,11 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* n
 	return sprite_renderer;
 }
 
-AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* node) {
+AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_source_node) {
 	AudioSource* audio_source = new AudioSource();
 	sf::Sound* sound = new sf::Sound();
 
-	std::string asset_id = FindAttribute(node, "assetID")->value();
+	std::string asset_id = GetAttributeValue(audio_source_node, "assetID");
 
 	SoundBufferAsset* sound_buffer_asset = dynamic_cast<SoundBufferAsset*>(resource_manager_->GetAssetOfID(asset_id));
 	sound->setBuffer(*(sound_buffer_asset->sound_buffer_));

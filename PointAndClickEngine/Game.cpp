@@ -4,7 +4,7 @@
 Game::~Game() {
 }
 
-Game::Game() : window_(NULL), resource_manager_(NULL), scenes_(NULL), current_scene_(NULL) {
+Game::Game() : resource_manager_(NULL), scenes_(NULL), current_scene_(NULL) {
 }
 
 

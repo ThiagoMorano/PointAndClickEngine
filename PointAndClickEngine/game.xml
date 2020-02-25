@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
   <title>BestPointNClick</title>
-  <window width="1280" height="800" fps="50"></window>
+  <window width="1920" height="1080" fps="50"></window>
   <resources path="assets/">
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
@@ -17,6 +17,7 @@
           <scale x="1.0" y="1.0"></scale>
         </transform>
         <components>
+          <characterController speed="5"></characterController>
           <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
         </components>
       </gameObject>

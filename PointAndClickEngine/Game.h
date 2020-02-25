@@ -14,7 +14,6 @@ public:
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
 
-
 private:
 	sf::RenderWindow* window_;
 	ResourceManager* resource_manager_;
