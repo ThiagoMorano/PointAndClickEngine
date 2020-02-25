@@ -10,15 +10,19 @@
 #include "Game.h"
 
 int main() {
-	ResourceManager resourceManager("game.xml");
+	ResourceManager resource_manager("game.xml");
 	Game game;
 
-	GameConfig* gameConfig = resourceManager.GetGameConfig();
+	GameConfig* gameConfig = resource_manager.GetGameConfig();
 
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	game.Init(&window, &resourceManager);
+	game.Init(&window, &resource_manager);
+
+	sf::Sprite testing_sprite;
+	TextureAsset* text = dynamic_cast<TextureAsset*>(resource_manager.GetAssetOfID("spr_Key"));
+	testing_sprite.setTexture(*(text->texture_));
 
 	while (window.isOpen()) {
 		sf::Event event;

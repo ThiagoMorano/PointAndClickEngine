@@ -10,7 +10,7 @@ class IComponent
 {
 public:
 	virtual ~IComponent() {};
-	virtual void Update() = 0;
+	virtual void Update(sf::Transformable*) = 0;
 	virtual ComponentType GetComponentType() = 0;
 };
 
@@ -20,7 +20,7 @@ public:
 
 	virtual ~SpriteRenderer();
 	virtual void Render(sf::RenderWindow*);
-	virtual void Update();
+	virtual void Update(sf::Transformable*);
 	virtual ComponentType GetComponentType();
 };
 
@@ -29,7 +29,7 @@ public:
 	sf::Sound* sound_;
 
 	virtual ~AudioSource();
-	virtual void Update();
+	virtual void Update(sf::Transformable*);
 	virtual ComponentType GetComponentType();
 
 	void Play();

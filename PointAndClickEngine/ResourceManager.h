@@ -71,6 +71,8 @@ private:
 	IComponent* InstantiateComponent(rapidxml::xml_node<>*);
 	ComponentType ParseComponentType(std::string);
 
+	void InitializeTransformable(Entity*, rapidxml::xml_node<>*);
+
 	SpriteRenderer* InstantiateSpriteRenderer(rapidxml::xml_node<>*);
 	AudioSource* InstantiateAudioSource(rapidxml::xml_node<>*);
 };

@@ -11,7 +11,7 @@ Entity::~Entity() {
 void Entity::Update() {
 	std::list<IComponent*>::iterator it;
 	for (it = components_.begin(); it != components_.end(); it++) {
-		(*it)->Update();
+		(*it)->Update(&transformable_);
 	}
 }
 

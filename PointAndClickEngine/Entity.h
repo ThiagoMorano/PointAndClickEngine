@@ -3,13 +3,6 @@
 #include <string>
 #include "Components.h"
 
-class EntityData {
-public:
-	std::list<std::string> components_;
-	std::string id_;
-};
-
-
 class Entity {
 public:
 	Entity();
@@ -20,6 +13,9 @@ public:
 
 	void AddComponent(IComponent*);
 	IComponent* GetComponent(ComponentType);
+	
+
+	sf::Transformable transformable_;
 
 private:
 	std::string id_;

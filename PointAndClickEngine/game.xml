@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
   <title>BestPointNClick</title>
-  <window width="1024" height="768" fps="50"></window>
+  <window width="1280" height="800" fps="50"></window>
   <resources path="assets/">
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
@@ -11,19 +11,33 @@
   <scenes>
     <scene id="scene1">
       <gameObject id="wrestler">
+        <transform>
+          <position x="30" y="50"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="1.0" y="1.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="doorSound">
+        <transform>
+          <position x="0.0" y="0.0"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="1.0" y="1.0"></scale>
+        </transform>
         <components>
           <audioSource assetID="sfx_Door"></audioSource>
         </components>
       </gameObject>
       <gameObject id="key">
+        <transform>
+          <position x="0.0" y="0..0"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="1.0" y="1.0"></scale>
+        </transform>
         <components>
-          <spriteRenderer assetID="spr_Wrestler">keyRenderer</spriteRenderer>
-        </components>
-      </gameObject>
-      <gameObject id="key">
-        <components>
-          <spriteRenderer assetID="spr_Key">keyRenderer</spriteRenderer>
-          <audioSource assetID="sfx_Jump"></audioSource>
+          <spriteRenderer assetID="spr_Key"></spriteRenderer>
         </components>
       </gameObject>
     </scene>

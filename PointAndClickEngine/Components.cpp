@@ -13,8 +13,10 @@ ComponentType SpriteRenderer::GetComponentType() {
 	return ComponentType::kSpriteRenderer;
 }
 
-void SpriteRenderer::Update() {
-
+void SpriteRenderer::Update(sf::Transformable* transformable) {
+	sprite_->setPosition(transformable->getPosition());
+	sprite_->setRotation(transformable->getRotation());
+	sprite_->setScale(transformable->getScale());
 }
 #pragma endregion
 
@@ -36,7 +38,7 @@ bool AudioSource::IsPlaying() {
 	return (sound_->getStatus() == sf::SoundSource::Status::Playing);
 }
 
-void AudioSource::Update() {
+void AudioSource::Update(sf::Transformable* transformable) {
 	if (!this->IsPlaying()) {
 		this->Play();
 	}
