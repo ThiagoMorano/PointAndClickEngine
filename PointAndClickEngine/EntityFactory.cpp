@@ -98,10 +98,40 @@ AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_s
 }
 
 Interactable* EntityFactory::InstantiateInteractable(rapidxml::xml_node<>* interactable_node) {
-	Interactable* interactable = new Interactable();
+	Interactable* interactable_ = new Interactable();
+
+	for (rapidxml::xml_node<>* response_pointer = interactable_node->first_node(); response_pointer != NULL; response_pointer = response_pointer->next_sibling()) {
+		IResponse* response = InstantiateReponse(response_pointer);
+		interactable_->AddResponse(response);
+	}
 
 
-	return interactable;
+	return interactable_;
+}
+
+IResponse* EntityFactory::InstantiateReponse(rapidxml::xml_node<>* response_node) {
+	IResponse* response = NULL;
+
+	std::string response_type = response_node->name();
+	if (response_type.compare("soundResponse") == 0) {
+		response = dynamic_cast<IResponse*>(InstantiateResponse_Audio(response_node));
+	}
+	else if (response_type.compare("loadSceneResponse") == 0) {
+		response = dynamic_cast<IResponse*>(InstantiateResponse_LoadScene(response_node));
+	}
+
+	return response;
+}
+
+AudioResponse* EntityFactory::InstantiateResponse_Audio(rapidxml::xml_node<>* audio_response_node) {
+	AudioResponse* audio_response = new AudioResponse();
+	return audio_response;
+}
+
+LoadSceneResponse* EntityFactory::InstantiateResponse_LoadScene(rapidxml::xml_node<>* load_scene_response_node) {
+	LoadSceneResponse* load_scene_response = new LoadSceneResponse();
+	load_scene_response->scene_id_ = GetAttributeValue(load_scene_response_node, "nextSceneID");
+	return load_scene_response;
 }
 
 void EntityFactory::InitializeTransformable(Entity* entity, rapidxml::xml_node<>* node) {

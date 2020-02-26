@@ -21,14 +21,32 @@
           <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
         </components>
       </gameObject>
-      <gameObject id="doorSound">
+      <gameObject id="key">
         <transform>
-          <position x="0.0" y="0.0"></position>
+          <position x="700.0" y="400"></position>
           <rotation angle="0.0"></rotation>
           <scale x="1.0" y="1.0"></scale>
         </transform>
         <components>
+          <spriteRenderer assetID="spr_Key"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
+          <interactable>
+            <soundResponse></soundResponse>
+            <loadSceneResponse nextSceneID="scene2"></loadSceneResponse>
+          </interactable>
+        </components>
+      </gameObject>
+    </scene>
+    <scene id="scene2">
+      <gameObject id="player">
+        <transform>
+          <position x="90" y="150"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="0.5" y="0.5"></scale>
+        </transform>
+        <components>
+          <characterController speed="5"></characterController>
+          <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
         </components>
       </gameObject>
       <gameObject id="key">
@@ -39,9 +57,10 @@
         </transform>
         <components>
           <spriteRenderer assetID="spr_Key"></spriteRenderer>
+          <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
-            <soundCallback soundSourceID="doorSound"></soundCallback>
-            <loadSceneCallback></loadSceneCallback>
+            <soundResponse></soundResponse>
+            <loadSceneResponse nextSceneID="scene1"></loadSceneResponse>
           </interactable>
         </components>
       </gameObject>

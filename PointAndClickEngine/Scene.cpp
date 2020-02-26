@@ -29,12 +29,17 @@ void Scene::AddEntity(Entity* entity) {
 	if (entity->GetComponent(ComponentType::kSpriteRenderer) != NULL) {
 		active_renderers_.push_back(dynamic_cast<IRenderable*>(entity->GetComponent(ComponentType::kSpriteRenderer)));
 	}
+	if (entity->GetComponent(ComponentType::kCharacterController) != NULL) {
+		character_controllers_.push_back(dynamic_cast<CharacterController*>(entity->GetComponent(ComponentType::kCharacterController)));
+	}
 }
 
 bool Scene::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer) {
 	std::list<CharacterController*>::iterator it;
-	for (it = characeter_controllers.begin(); it != characeter_controllers.end(); it++) {
-		(*it)->CheckOverlap(sprite_renderer);
+	for (it = character_controllers_.begin(); it != character_controllers_.end(); it++) {
+		if ((*it)->CheckOverlap(sprite_renderer)) {
+			return true;
+		}
 	}
 	return false;
 }

@@ -8,7 +8,7 @@ public:
 	std::list<Entity*> entities_;
 	std::list<IRenderable*> active_renderers_;
 
-	std::list<CharacterController*> characeter_controllers;
+	std::list<CharacterController*> character_controllers_;
 
 	Scene();
 	~Scene();

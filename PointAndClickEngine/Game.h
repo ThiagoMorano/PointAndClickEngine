@@ -17,6 +17,9 @@ public:
 
 	bool CheckOverlapWithCharacterController(SpriteRenderer*);
 
+	void LoadSceneOfID(std::string);
+	void LoadScene(Scene*);
+
 	sf::RenderWindow* window_;
 	ResourceManager* resource_manager_;
 

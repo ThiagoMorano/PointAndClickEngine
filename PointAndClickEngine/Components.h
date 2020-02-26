@@ -1,8 +1,11 @@
 #pragma once
 #include "Graphics.h"
+#include <list>
 #include <SFML/Audio.hpp>
 
+//Forward declarations
 class Entity;
+class IResponse;
 
 enum class ComponentType {
 	kCharacterController,
@@ -96,6 +99,8 @@ protected:
 	virtual void SetEntity(Entity*);
 };
 
+
+
 class Interactable : public virtual IComponent {
 public:
 	Entity* entity_;
@@ -106,9 +111,14 @@ public:
 	virtual ComponentType GetComponentType();
 	virtual IComponent* GetComponent(ComponentType);
 
+
+	void AddResponse(IResponse*);
+
 	bool WasClickedOn();
 	bool CheckOverlapWithCharacterControllers();
 	void Interact();
+
+	std::list<IResponse*> responses_;
 
 private:
 	bool was_clicked_on_;

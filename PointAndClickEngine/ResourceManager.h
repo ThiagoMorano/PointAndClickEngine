@@ -15,6 +15,7 @@
 
 #include "Assets.h"
 #include "Entity.h"
+#include "Responses.h"
 #include "Scene.h"
 
 class GameConfig {
@@ -77,13 +78,17 @@ private:
 	SpriteRenderer* InstantiateSpriteRenderer(rapidxml::xml_node<>*);
 	AudioSource* InstantiateAudioSource(rapidxml::xml_node<>*);
 	Interactable* InstantiateInteractable(rapidxml::xml_node<>*);
+
+	IResponse* InstantiateReponse(rapidxml::xml_node<>*);
+	AudioResponse* InstantiateResponse_Audio(rapidxml::xml_node<>*);
+	LoadSceneResponse* InstantiateResponse_LoadScene(rapidxml::xml_node<>*);
 };
 
 class AssetFactory {
 public:
 	AssetFactory(ResourceManager* resource_manager);
 
-	Asset* CreateAsset(rapidxml::xml_node<>*);
+	Asset* CreateAsset(rapidxml::xml_node<>* asset_node);
 
 private:
 	ResourceManager* resource_manager_;

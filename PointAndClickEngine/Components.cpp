@@ -1,6 +1,6 @@
 #include "Components.h"
 #include "Game.h"
-
+#include "Responses.h"
 
 #pragma region SpriteRenderer
 SpriteRenderer::~SpriteRenderer() {
@@ -38,11 +38,13 @@ void SpriteRenderer::SetSprite(sf::Sprite* sprite) {
 
 bool SpriteRenderer::CheckOverlap(sf::Vector2i vector) {
 	sf::Vector2f vectorf(vector);
-	return sprite_->getGlobalBounds().contains(vectorf);
+	bool was_contained = sprite_->getGlobalBounds().contains(vectorf.x, vectorf.y);
+	return was_contained;
 }
 
 bool SpriteRenderer::CheckOverlap(SpriteRenderer* renderer) {
-	return sprite_->getGlobalBounds().intersects(renderer->sprite_->getGlobalBounds());
+	bool intersected = sprite_->getGlobalBounds().intersects(renderer->sprite_->getGlobalBounds());
+	return intersected;
 }
 #pragma endregion
 
@@ -167,6 +169,11 @@ Interactable::~Interactable() {}
 
 void Interactable::Init() {
 	sprite_renderer_ = dynamic_cast<SpriteRenderer*>(entity_->GetComponent(ComponentType::kSpriteRenderer));
+
+	std::list<IResponse*>::iterator it;
+	for (it = responses_.begin(); it != responses_.end(); it++) {
+		(*it)->Init();
+	}
 }
 
 ComponentType Interactable::GetComponentType() {
@@ -183,9 +190,12 @@ void Interactable::SetEntity(Entity* entity) {
 
 void Interactable::Update(sf::Transformable* transformable) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		sf::Vector2i mouse_position = sf::Mouse::getPosition();
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(*Game::instance()->window_);
 		if (sprite_renderer_->CheckOverlap(mouse_position)) {
 			was_clicked_on_ = true;
+		}
+		else {
+			was_clicked_on_ = false;
 		}
 	}
 
@@ -205,6 +215,15 @@ bool Interactable::CheckOverlapWithCharacterControllers() {
 }
 
 void Interactable::Interact() {
+	std::list<IResponse*>::iterator it;
+	for (it = responses_.begin(); it != responses_.end(); it++) {
+		(*it)->Invoke();
+	}
+}
+
+void Interactable::AddResponse(IResponse* response) {
+	response->SetInteractable(this);
+	responses_.push_back(response);
 }
 
 bool Interactable::WasClickedOn() {

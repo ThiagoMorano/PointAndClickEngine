@@ -45,3 +45,16 @@ void Game::RenderActiveObjects() {
 bool Game::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer) {
 	return current_scene_->CheckOverlapWithCharacterController(sprite_renderer);
 }
+
+void Game::LoadSceneOfID(std::string scene_id) {
+	std::list<Scene*>::iterator it;
+	for (it = scenes_->begin(); it != scenes_->end(); it++) {
+		if ((*it)->id_.compare(scene_id) == 0) {
+			LoadScene(*it);
+		}
+	}
+}
+
+void Game::LoadScene(Scene* scene) {
+	current_scene_ = scene;
+}
