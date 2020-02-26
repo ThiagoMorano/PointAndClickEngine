@@ -31,10 +31,10 @@ void Scene::AddEntity(Entity* entity) {
 	}
 }
 
-bool Scene::CheckOverlapCharacterControllerWithInteractables(CharacterController* character_controller) {
-	std::list<Interactable*>::iterator it;
-	for (it = interactable_items_.begin(); it != interactable_items_.end(); it++) {
-		(*it)->OverlappingCharacterController();
+bool Scene::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer) {
+	std::list<CharacterController*>::iterator it;
+	for (it = characeter_controllers.begin(); it != characeter_controllers.end(); it++) {
+		(*it)->CheckOverlap(sprite_renderer);
 	}
 	return false;
 }

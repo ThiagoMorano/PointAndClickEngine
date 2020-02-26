@@ -42,6 +42,6 @@ void Game::RenderActiveObjects() {
 	std::list<IRenderable*>::iterator iterator;
 }
 
-bool Game::CheckOverlapCharacterControllerWithInteractables(CharacterController* character_controller) {
-	return current_scene_->CheckOverlapCharacterControllerWithInteractables(character_controller);
+bool Game::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer) {
+	return current_scene_->CheckOverlapWithCharacterController(sprite_renderer);
 }

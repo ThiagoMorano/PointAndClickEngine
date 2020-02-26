@@ -40,6 +40,9 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 	case ComponentType::kAudioSource:
 		component = dynamic_cast<IComponent*>(InstantiateAudioSource(component_node));
 		break;
+	case ComponentType::kInteractable:
+		component = dynamic_cast<IComponent*>(InstantiateInteractable(component_node));
+		break;
 	}
 
 	return component;
@@ -55,12 +58,15 @@ ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 	else if (type_name.compare("audioSource") == 0) {
 		return ComponentType::kAudioSource;
 	}
+	else if (type_name.compare("interactable") == 0) {
+		return ComponentType::kInteractable;
+	}
 }
 
 CharacterController* EntityFactory::InstantiateCharacterController(rapidxml::xml_node<>* character_controller_node) {
 	CharacterController* character_controller = new CharacterController();
 
-	character_controller->speed_ = atof(GetAttributeValue(character_controller_node, "speed"));
+	character_controller->speed_ = static_cast<float>(atof(GetAttributeValue(character_controller_node, "speed")));
 
 	return character_controller;
 }
@@ -73,7 +79,7 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* s
 
 	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
 	sprite->setTexture(*(texture_asset->texture_));
-	sprite_renderer->sprite_ = sprite;
+	sprite_renderer->SetSprite(sprite);
 
 	return sprite_renderer;
 }
@@ -91,19 +97,26 @@ AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_s
 	return audio_source;
 }
 
+Interactable* EntityFactory::InstantiateInteractable(rapidxml::xml_node<>* interactable_node) {
+	Interactable* interactable = new Interactable();
+
+
+	return interactable;
+}
+
 void EntityFactory::InitializeTransformable(Entity* entity, rapidxml::xml_node<>* node) {
 	rapidxml::xml_node<>* transform_node = FindChildNode(node, "transform");
 	// If there's no transform node, transformable will keep the default values
 	if (transform_node != NULL) {
-		float position_x = atof(GetAttributeValue(FindChildNode(transform_node, "position"), "x"));
-		float position_y = atof(GetAttributeValue(FindChildNode(transform_node, "position"), "y"));
+		float position_x = static_cast<float>(atof(GetAttributeValue(FindChildNode(transform_node, "position"), "x")));
+		float position_y = static_cast<float>(atof(GetAttributeValue(FindChildNode(transform_node, "position"), "y")));
 		entity->transformable_.setPosition(position_x, position_y);
 
-		float angle = atof(GetAttributeValue(FindChildNode(transform_node, "rotation"), "angle"));
+		float angle = static_cast<float>(atof(GetAttributeValue(FindChildNode(transform_node, "rotation"), "angle")));
 		entity->transformable_.setRotation(angle);
 
-		float scale_x = atof(GetAttributeValue(FindChildNode(transform_node, "scale"), "x"));
-		float scale_y = atof(GetAttributeValue(FindChildNode(transform_node, "scale"), "y"));
+		float scale_x = static_cast<float>(atof(GetAttributeValue(FindChildNode(transform_node, "scale"), "x")));
+		float scale_y = static_cast<float>(atof(GetAttributeValue(FindChildNode(transform_node, "scale"), "y")));
 		entity->transformable_.setScale(scale_x, scale_y);
 	}
 }

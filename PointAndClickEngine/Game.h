@@ -15,17 +15,15 @@ public:
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
 
-	bool CheckOverlapCharacterControllerWithInteractables(CharacterController*);
+	bool CheckOverlapWithCharacterController(SpriteRenderer*);
 
 	sf::RenderWindow* window_;
+	ResourceManager* resource_manager_;
 
 private:
 	Game();
 
 	static Game* instance_;
-
-
-	ResourceManager* resource_manager_;
 
 	std::list<Scene*>* scenes_;
 	Scene* current_scene_;

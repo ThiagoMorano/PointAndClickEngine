@@ -9,6 +9,7 @@ public:
 	Entity(std::string);
 	~Entity();
 
+	void Init();
 	void Update();
 
 	void AddComponent(IComponent*);

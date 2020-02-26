@@ -2,9 +2,59 @@
 #include "Game.h"
 
 
+#pragma region SpriteRenderer
+SpriteRenderer::~SpriteRenderer() {
+	delete(sprite_);
+}
+
+void SpriteRenderer::Init() {}
+
+void SpriteRenderer::Render(sf::RenderWindow* window) {
+	window->draw(*sprite_);
+}
+
+ComponentType SpriteRenderer::GetComponentType() {
+	return ComponentType::kSpriteRenderer;
+}
+
+IComponent* SpriteRenderer::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
+
+void SpriteRenderer::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
+void SpriteRenderer::Update(sf::Transformable* transformable) {
+	sprite_->setPosition(transformable->getPosition());
+	sprite_->setRotation(transformable->getRotation());
+	sprite_->setScale(transformable->getScale());
+}
+
+void SpriteRenderer::SetSprite(sf::Sprite* sprite) {
+	sprite_ = sprite;
+	sprite_->setOrigin(sprite_->getGlobalBounds().width / 2, sprite_->getGlobalBounds().height / 2);
+}
+
+bool SpriteRenderer::CheckOverlap(sf::Vector2i vector) {
+	sf::Vector2f vectorf(vector);
+	return sprite_->getGlobalBounds().contains(vectorf);
+}
+
+bool SpriteRenderer::CheckOverlap(SpriteRenderer* renderer) {
+	return sprite_->getGlobalBounds().intersects(renderer->sprite_->getGlobalBounds());
+}
+#pragma endregion
+
+
+
 #pragma region CharacterController
 CharacterController::~CharacterController() {
 
+}
+
+void CharacterController::Init() {
+	sprite_renderer_ = dynamic_cast<SpriteRenderer*>(GetComponent(ComponentType::kSpriteRenderer));
 }
 
 ComponentType CharacterController::GetComponentType() {
@@ -37,8 +87,8 @@ void CharacterController::Update(sf::Transformable* transformable) {
 }
 
 void CharacterController::CalculateDirection(sf::Transformable* transformable) {
-	destination_.x = sf::Mouse::getPosition(*Game::instance()->window_).x;
-	destination_.y = sf::Mouse::getPosition(*Game::instance()->window_).y;
+	destination_.x = static_cast<float>(sf::Mouse::getPosition(*Game::instance()->window_).x);
+	destination_.y = static_cast<float>(sf::Mouse::getPosition(*Game::instance()->window_).y);
 
 	direction_ = destination_ - transformable->getPosition();
 	float direction_length = sqrtf((direction_.x * direction_.x + direction_.y * direction_.y));
@@ -61,49 +111,23 @@ bool CharacterController::ArrivedAtDestination(sf::Transformable* transformable)
 	return false;
 }
 
-bool CharacterController::CheckOverlapWithInteractable() {
-	return true;
+bool CharacterController::CheckOverlap(SpriteRenderer* sprite_renderer) {
+	if (sprite_renderer_ != NULL) {
+		return sprite_renderer_->CheckOverlap(sprite_renderer);
+	}
+
+	return false;
 }
 #pragma endregion
 
-
-#pragma region SpriteRenderer
-SpriteRenderer::~SpriteRenderer() {
-	delete(sprite_);
-}
-
-void SpriteRenderer::Render(sf::RenderWindow* window) {
-	window->draw(*sprite_);
-}
-
-ComponentType SpriteRenderer::GetComponentType() {
-	return ComponentType::kSpriteRenderer;
-}
-
-IComponent* SpriteRenderer::GetComponent(ComponentType component_type) {
-	return entity_->GetComponent(component_type);
-}
-
-void SpriteRenderer::SetEntity(Entity* entity) {
-	entity_ = entity;
-}
-
-void SpriteRenderer::Update(sf::Transformable* transformable) {
-	sprite_->setPosition(transformable->getPosition());
-	sprite_->setRotation(transformable->getRotation());
-	sprite_->setScale(transformable->getScale());
-}
-
-bool SpriteRenderer::PositionWithinSprite(sf::Vector2i vector) {
-	return true;
-}
-#pragma endregion
 
 
 #pragma region AudioSource
 AudioSource::~AudioSource() {
 	delete(sound_);
 }
+
+void AudioSource::Init() {}
 
 ComponentType AudioSource::GetComponentType() {
 	return ComponentType::kAudioSource;
@@ -136,8 +160,14 @@ void AudioSource::Stop() {
 }
 #pragma endregion
 
+
+
 #pragma region Interactable
 Interactable::~Interactable() {}
+
+void Interactable::Init() {
+	sprite_renderer_ = dynamic_cast<SpriteRenderer*>(entity_->GetComponent(ComponentType::kSpriteRenderer));
+}
 
 ComponentType Interactable::GetComponentType() {
 	return ComponentType::kInteractable;
@@ -154,21 +184,24 @@ void Interactable::SetEntity(Entity* entity) {
 void Interactable::Update(sf::Transformable* transformable) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		sf::Vector2i mouse_position = sf::Mouse::getPosition();
-		if (sprite_renderer_->PositionWithinSprite(mouse_position)) {
+		if (sprite_renderer_->CheckOverlap(mouse_position)) {
 			was_clicked_on_ = true;
 		}
 	}
 
 	if (was_clicked_on_) {
-		if (OverlappingCharacterController()) {
+		if (CheckOverlapWithCharacterControllers()) {
 			Interact();
 		}
 	}
 }
 
-bool Interactable::OverlappingCharacterController() {
+bool Interactable::CheckOverlapWithCharacterControllers() {
+	if (sprite_renderer_ != NULL) {
+		return Game::instance()->CheckOverlapWithCharacterController(sprite_renderer_);
+	}
 
-	return true;
+	return false;
 }
 
 void Interactable::Interact() {

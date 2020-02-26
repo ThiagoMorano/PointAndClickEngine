@@ -181,6 +181,7 @@ void ResourceManager::LoadGameObjectsIntoScene(Scene* scene, rapidxml::xml_node<
 	//Iterate through <gameObject> nodes
 	for (rapidxml::xml_node<>* node_iterator = game_object_node; node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
 		entity_pointer = entity_factory.CreateEntity(node_iterator);
+		entity_pointer->Init();
 		scene->AddEntity(entity_pointer);
 	}
 }

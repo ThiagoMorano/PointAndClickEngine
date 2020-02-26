@@ -8,6 +8,13 @@ Entity::~Entity() {
 	}
 }
 
+void Entity::Init() {
+	std::list<IComponent*>::iterator it;
+	for (it = components_.begin(); it != components_.end(); it++) {
+		(*it)->Init();
+	}
+}
+
 void Entity::Update() {
 	std::list<IComponent*>::iterator it;
 	for (it = components_.begin(); it != components_.end(); it++) {
