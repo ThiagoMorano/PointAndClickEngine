@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
   <title>BestPointNClick</title>
-  <window width="1920" height="1080" fps="50"></window>
+  <window width="1280" height="800" fps="50"></window>
   <resources path="assets/">
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
@@ -10,11 +10,11 @@
   </resources>
   <scenes>
     <scene id="scene1">
-      <gameObject id="wrestler">
+      <gameObject id="player">
         <transform>
           <position x="30" y="50"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="1.0" y="1.0"></scale>
+          <scale x="0.5" y="0.5"></scale>
         </transform>
         <components>
           <characterController speed="5"></characterController>

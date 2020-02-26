@@ -16,6 +16,7 @@ void Entity::Update() {
 }
 
 void Entity::AddComponent(IComponent* component) {
+	component->SetEntity(this);
 	components_.push_back(component);
 }
 

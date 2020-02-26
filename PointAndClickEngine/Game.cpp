@@ -1,6 +1,13 @@
 #include "Game.h"
 
 
+Game* Game::instance() {
+	if (instance_ == NULL) {
+		instance_ = new Game();
+	}
+	return instance_;
+}
+
 Game::~Game() {
 }
 
@@ -33,4 +40,8 @@ void Game::Render() {
 
 void Game::RenderActiveObjects() {
 	std::list<IRenderable*>::iterator iterator;
+}
+
+bool Game::CheckOverlapCharacterControllerWithInteractables(CharacterController* character_controller) {
+	return current_scene_->CheckOverlapCharacterControllerWithInteractables(character_controller);
 }

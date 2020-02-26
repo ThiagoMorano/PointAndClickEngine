@@ -30,3 +30,11 @@ void Scene::AddEntity(Entity* entity) {
 		active_renderers_.push_back(dynamic_cast<IRenderable*>(entity->GetComponent(ComponentType::kSpriteRenderer)));
 	}
 }
+
+bool Scene::CheckOverlapCharacterControllerWithInteractables(CharacterController* character_controller) {
+	std::list<Interactable*>::iterator it;
+	for (it = interactable_items_.begin(); it != interactable_items_.end(); it++) {
+		(*it)->OverlappingCharacterController();
+	}
+	return false;
+}

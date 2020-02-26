@@ -5,17 +5,25 @@
 #include "Assets.h"
 #include "Graphics.h"
 
-
+// Singleton
 class Game {
 public:
-	Game();
 	~Game();
+
+	static Game* instance();
 
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
 
-	static sf::RenderWindow* window_;
+	bool CheckOverlapCharacterControllerWithInteractables(CharacterController*);
+
+	sf::RenderWindow* window_;
+
 private:
+	Game();
+
+	static Game* instance_;
+
 
 	ResourceManager* resource_manager_;
 
@@ -28,4 +36,3 @@ private:
 
 	void RenderActiveObjects();
 };
-

@@ -11,6 +11,15 @@ ComponentType CharacterController::GetComponentType() {
 	return ComponentType::kCharacterController;
 }
 
+IComponent* CharacterController::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
+
+void CharacterController::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
+
 void CharacterController::Update(sf::Transformable* transformable) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 		should_move_ = true;
@@ -28,8 +37,8 @@ void CharacterController::Update(sf::Transformable* transformable) {
 }
 
 void CharacterController::CalculateDirection(sf::Transformable* transformable) {
-	destination_.x = sf::Mouse::getPosition(*Game::window_).x;
-	destination_.y = sf::Mouse::getPosition(*Game::window_).y;
+	destination_.x = sf::Mouse::getPosition(*Game::instance()->window_).x;
+	destination_.y = sf::Mouse::getPosition(*Game::instance()->window_).y;
 
 	direction_ = destination_ - transformable->getPosition();
 	float direction_length = sqrtf((direction_.x * direction_.x + direction_.y * direction_.y));
@@ -52,6 +61,9 @@ bool CharacterController::ArrivedAtDestination(sf::Transformable* transformable)
 	return false;
 }
 
+bool CharacterController::CheckOverlapWithInteractable() {
+	return true;
+}
 #pragma endregion
 
 
@@ -68,10 +80,22 @@ ComponentType SpriteRenderer::GetComponentType() {
 	return ComponentType::kSpriteRenderer;
 }
 
+IComponent* SpriteRenderer::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
+
+void SpriteRenderer::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
 void SpriteRenderer::Update(sf::Transformable* transformable) {
 	sprite_->setPosition(transformable->getPosition());
 	sprite_->setRotation(transformable->getRotation());
 	sprite_->setScale(transformable->getScale());
+}
+
+bool SpriteRenderer::PositionWithinSprite(sf::Vector2i vector) {
+	return true;
 }
 #pragma endregion
 
@@ -85,18 +109,73 @@ ComponentType AudioSource::GetComponentType() {
 	return ComponentType::kAudioSource;
 }
 
+IComponent* AudioSource::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
+
+void AudioSource::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
 void AudioSource::Play() {
-	sound_->play();
+	if (!this->IsPlaying()) {
+		sound_->play();
+	}
 }
 
 bool AudioSource::IsPlaying() {
 	return (sound_->getStatus() == sf::SoundSource::Status::Playing);
 }
 
-void AudioSource::Update(sf::Transformable* transformable) {
-	if (!this->IsPlaying()) {
-		this->Play();
+void AudioSource::Update(sf::Transformable* transformable) {}
+
+void AudioSource::Stop() {
+	if (this->IsPlaying()) {
+		sound_->stop();
 	}
+}
+#pragma endregion
+
+#pragma region Interactable
+Interactable::~Interactable() {}
+
+ComponentType Interactable::GetComponentType() {
+	return ComponentType::kInteractable;
+}
+
+IComponent* Interactable::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
+
+void Interactable::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
+void Interactable::Update(sf::Transformable* transformable) {
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+		sf::Vector2i mouse_position = sf::Mouse::getPosition();
+		if (sprite_renderer_->PositionWithinSprite(mouse_position)) {
+			was_clicked_on_ = true;
+		}
+	}
+
+	if (was_clicked_on_) {
+		if (OverlappingCharacterController()) {
+			Interact();
+		}
+	}
+}
+
+bool Interactable::OverlappingCharacterController() {
+
+	return true;
+}
+
+void Interactable::Interact() {
+}
+
+bool Interactable::WasClickedOn() {
+	return true;
 }
 
 #pragma endregion

@@ -9,18 +9,18 @@
 #include "ResourceManager.h"
 #include "Game.h"
 
-sf::RenderWindow* Game::window_;
+
+Game* Game::instance_;
 
 int main() {
 	ResourceManager resource_manager("game.xml");
-	Game game;
 
 	GameConfig* gameConfig = resource_manager.GetGameConfig();
 
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	game.Init(&window, &resource_manager);
+	Game::instance()->Init(&window, &resource_manager);
 
 	sf::Sprite testing_sprite;
 	TextureAsset* text = dynamic_cast<TextureAsset*>(resource_manager.GetAssetOfID("spr_Key"));
@@ -33,7 +33,7 @@ int main() {
 				window.close();
 		}
 
-		game.GameLoop();
+		Game::instance()->GameLoop();
 	}
 
 	delete(gameConfig);
