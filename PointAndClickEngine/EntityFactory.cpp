@@ -39,6 +39,9 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 	case ComponentType::kSpriteRenderer:
 		component = dynamic_cast<IComponent*>(InstantiateSpriteRenderer(component_node));
 		break;
+	case ComponentType::kAnimatedSprite:
+		component = dynamic_cast<IComponent*>(InstantiateAnimatedSprite(component_node));
+		break;
 	case ComponentType::kAudioSource:
 		component = dynamic_cast<IComponent*>(InstantiateAudioSource(component_node));
 		break;
@@ -56,6 +59,9 @@ ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 	}
 	else if (type_name.compare("spriteRenderer") == 0) {
 		return ComponentType::kSpriteRenderer;
+	}
+	else if (type_name.compare("animatedSprite") == 0) {
+		return ComponentType::kAnimatedSprite;
 	}
 	else if (type_name.compare("audioSource") == 0) {
 		return ComponentType::kAudioSource;
@@ -86,6 +92,23 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* s
 	sprite_renderer->render_layer_ = atoi(GetAttributeValue(sprite_renderer_node, "renderLayer"));
 
 	return sprite_renderer;
+}
+
+AnimatedSprite* EntityFactory::InstantiateAnimatedSprite(rapidxml::xml_node<>* animated_sprite_node) {
+	AnimatedSprite* animated_sprite = new AnimatedSprite();
+
+	std::string asset_id = GetAttributeValue(animated_sprite_node, "assetID");
+
+	animated_sprite->render_layer_ = atoi(GetAttributeValue(animated_sprite_node, "renderLayer"));
+	animated_sprite->number_of_keyframes_ = atoi(GetAttributeValue(animated_sprite_node, "keyframes"));
+	animated_sprite->duration_ = static_cast<float>(atof(GetAttributeValue(animated_sprite_node, "duration")));
+	animated_sprite->keyframe_width_ = atoi(GetAttributeValue(animated_sprite_node, "frameWidth"));
+	animated_sprite->keyframe_height_ = atoi(GetAttributeValue(animated_sprite_node, "frameHeight"));
+
+	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
+	animated_sprite->SetSprite(texture_asset->texture_);
+
+	return animated_sprite;
 }
 
 AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_source_node) {

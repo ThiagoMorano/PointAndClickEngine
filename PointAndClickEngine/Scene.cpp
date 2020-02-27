@@ -48,8 +48,10 @@ void Scene::StopScene() {
 void Scene::AddEntity(Entity* entity) {
 	entities_.push_back(entity);
 	if (entity->GetComponent(ComponentType::kSpriteRenderer) != NULL) {
-
 		AddRenderer(dynamic_cast<IRenderable*>(entity->GetComponent(ComponentType::kSpriteRenderer)));
+	}
+	if (entity->GetComponent(ComponentType::kAnimatedSprite) != NULL) {
+		AddRenderer(dynamic_cast<IRenderable*>(entity->GetComponent(ComponentType::kAnimatedSprite)));
 	}
 	if (entity->GetComponent(ComponentType::kCharacterController) != NULL) {
 		character_controllers_.push_back(dynamic_cast<CharacterController*>(entity->GetComponent(ComponentType::kCharacterController)));

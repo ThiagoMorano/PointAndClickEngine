@@ -23,6 +23,7 @@ private:
 
 	CharacterController* InstantiateCharacterController(rapidxml::xml_node<>*);
 	SpriteRenderer* InstantiateSpriteRenderer(rapidxml::xml_node<>*);
+	AnimatedSprite* InstantiateAnimatedSprite(rapidxml::xml_node<>*);
 	AudioSource* InstantiateAudioSource(rapidxml::xml_node<>*);
 	Interactable* InstantiateInteractable(rapidxml::xml_node<>*);
 

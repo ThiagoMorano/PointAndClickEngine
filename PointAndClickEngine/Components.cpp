@@ -44,6 +44,10 @@ void SpriteRenderer::SetSprite(sf::Sprite* sprite) {
 	sprite_->setOrigin(sprite_->getGlobalBounds().width / 2, sprite_->getGlobalBounds().height / 2);
 }
 
+sf::Sprite* SpriteRenderer::GetSprite() {
+	return sprite_;
+}
+
 bool SpriteRenderer::CheckOverlap(sf::Vector2i vector) {
 	sf::Vector2f vectorf(vector);
 	bool was_contained = sprite_->getGlobalBounds().contains(vectorf.x, vectorf.y);
@@ -57,7 +61,6 @@ bool SpriteRenderer::CheckOverlap(SpriteRenderer* renderer) {
 #pragma endregion
 
 
-
 #pragma region AnimatedSprite
 AnimatedSprite::~AnimatedSprite() {
 	std::vector<sf::Sprite*>::iterator it;
@@ -67,26 +70,84 @@ AnimatedSprite::~AnimatedSprite() {
 }
 
 void AnimatedSprite::Init() {
-	current_sprite_->setPosition((entity_->transformable_).getPosition());
-	current_sprite_->setRotation((entity_->transformable_).getRotation());
-	current_sprite_->setScale((entity_->transformable_).getScale());
+	std::vector<sf::Sprite*>::iterator it;
+	for (it = sprites_.begin(); it != sprites_.end(); it++) {
+		(*it)->setPosition((entity_->transformable_).getPosition());
+		(*it)->setRotation((entity_->transformable_).getRotation());
+		(*it)->setScale((entity_->transformable_).getScale());
+	}
+	
+
+	time_per_keyframe_ = duration_ / number_of_keyframes_;
+	current_sprite_ = 0;
 }
+
+
 void AnimatedSprite::Update(sf::Transformable*) {
-	current_sprite_->setPosition((entity_->transformable_).getPosition());
-	current_sprite_->setRotation((entity_->transformable_).getRotation());
-	current_sprite_->setScale((entity_->transformable_).getScale());
+	elapsed_time_ += Time::Instance()->DeltaTime();
+	if (elapsed_time_ >= time_per_keyframe_) {
+		NextKeyframe();
+		elapsed_time_ = 0.0f;
+	}
+
+	sprites_[current_sprite_]->setPosition((entity_->transformable_).getPosition());
+	sprites_[current_sprite_]->setRotation((entity_->transformable_).getRotation());
+	sprites_[current_sprite_]->setScale((entity_->transformable_).getScale());
 }
-void AnimatedSprite::Render(sf::RenderWindow*) {}
-int AnimatedSprite::GetRenderLayer() { return render_layer_; }
-ComponentType AnimatedSprite::GetComponentType() { return ComponentType::kAnimatedSprite; }
-IComponent* AnimatedSprite::GetComponent(ComponentType) { return NULL; }
+
+void AnimatedSprite::NextKeyframe() {
+	current_sprite_++;
+	if (current_sprite_ > number_of_keyframes_ - 1) {
+		current_sprite_ = 0;
+	}
+}
+
+void AnimatedSprite::Render(sf::RenderWindow* window) {
+	window->draw(*sprites_[current_sprite_]);
+}
+
+int AnimatedSprite::GetRenderLayer() {
+	return render_layer_;
+}
+
+ComponentType AnimatedSprite::GetComponentType() {
+	return ComponentType::kAnimatedSprite;
+}
+
+IComponent* AnimatedSprite::GetComponent(ComponentType component_type) {
+	return entity_->GetComponent(component_type);
+}
 
 void AnimatedSprite::SetSprite(sf::Sprite*) {}
-bool AnimatedSprite::CheckOverlap(sf::Vector2i) {
-	return false;
+
+void AnimatedSprite::SetSprite(sf::Texture* texture) {
+	sf::Vector2i texture_size = sf::Vector2i(texture->getSize());
+
+	for (int j = 0; j < texture_size.y / keyframe_height_; j++) {
+		for (int i = 0; i < texture_size.x / keyframe_width_; i++) {
+			if (sprites_.size() >= number_of_keyframes_) {
+				return;
+			}
+			sf::Sprite* new_sprite = new sf::Sprite(*texture);
+			new_sprite->setTextureRect(sf::IntRect(i * keyframe_width_, j * keyframe_height_, keyframe_width_, keyframe_height_));
+			sprites_.push_back(new_sprite);
+		}
+	}
 }
-bool AnimatedSprite::CheckOverlap(SpriteRenderer*) {
-	return false;
+
+sf::Sprite* AnimatedSprite::GetSprite() {
+	return sprites_[current_sprite_];
+}
+
+bool AnimatedSprite::CheckOverlap(sf::Vector2i vector) {
+	sf::Vector2f vectorf(vector);
+	bool was_contained = sprites_[current_sprite_]->getGlobalBounds().contains(vectorf.x, vectorf.y);
+	return was_contained;
+}
+
+bool AnimatedSprite::CheckOverlap(SpriteRenderer* renderer) {
+	bool intersected = sprites_[current_sprite_]->getGlobalBounds().intersects(renderer->GetSprite()->getGlobalBounds());
+	return intersected;
 }
 
 void AnimatedSprite::SetEntity(Entity* entity) {

@@ -7,7 +7,9 @@
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
     <asset type="image" id="spr_Key">key.png</asset>
-    <!--<asset type="animation" id="sprsheet_Fire">Small_Fireball_10x26.png</asset>-->
+    
+    <asset type="image" id="spr_sheet_Fire">Small_Fireball_10x26.png</asset>
+    <!--<asset type="sprite_sheet" id="spr_sheet_Fire" keyframes="60" duration="2" singleWidth="6" singleHeight="10">Small_Fireball_10x26.png</asset> -->
     <asset type="font" id="font_Arial">arial.ttf</asset>
 
     <!-- Scene 1 -->
@@ -85,6 +87,19 @@
           <interactable>
             <textResponse fontID="font_Arial" time="5.0">Thou needest no key to go though a magic door.</textResponse>
           </interactable>
+        </components>
+      </gameObject>
+      <gameObject id="fireball">
+        <transform>
+          <position x="600.0" y="205"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <animatedSprite assetID="spr_sheet_Fire" renderLayer="3" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
+          <!--<interactable>
+            <textResponse fontID="font_Arial" time="5.0">I'M A FIREBALL!</textResponse>
+          </interactable> -->
         </components>
       </gameObject>
 

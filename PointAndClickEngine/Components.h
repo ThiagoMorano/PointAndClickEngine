@@ -51,11 +51,11 @@ public:
 	virtual ComponentType GetComponentType();
 	virtual IComponent* GetComponent(ComponentType);
 
-	void SetSprite(sf::Sprite*);
+	virtual void SetSprite(sf::Sprite*);
+	virtual sf::Sprite* GetSprite();
 
-	bool CheckOverlap(sf::Vector2i);
-
-	bool CheckOverlap(SpriteRenderer*);
+	virtual bool CheckOverlap(sf::Vector2i);
+	virtual bool CheckOverlap(SpriteRenderer*);
 
 protected:
 	virtual void SetEntity(Entity*);
@@ -63,10 +63,12 @@ protected:
 	sf::Sprite* sprite_;
 };
 
-class AnimatedSprite : public virtual IComponent, public virtual IRenderable {
+class AnimatedSprite : public SpriteRenderer {
 public:
-	Entity* entity_;
-	int render_layer_;
+	float duration_;
+	int number_of_keyframes_;
+	int keyframe_width_;
+	int keyframe_height_;
 
 	virtual ~AnimatedSprite();
 	virtual void Init();
@@ -75,15 +77,25 @@ public:
 	virtual int GetRenderLayer();
 	virtual ComponentType GetComponentType();
 	virtual IComponent* GetComponent(ComponentType);
+	
+	virtual void SetSprite(sf::Texture*);
+	virtual sf::Sprite* GetSprite();
+
+	virtual bool CheckOverlap(sf::Vector2i);
+	virtual bool CheckOverlap(SpriteRenderer*);
 
 	void SetSprite(sf::Sprite*);
-	bool CheckOverlap(sf::Vector2i);
-	bool CheckOverlap(SpriteRenderer*);
+	
 
 protected:
 	virtual void SetEntity(Entity*);
 
-	sf::Sprite* current_sprite_;
+	void NextKeyframe();
+
+	float elapsed_time_;
+	float time_per_keyframe_;
+
+	int current_sprite_;
 	std::vector<sf::Sprite*> sprites_;
 };
 
@@ -134,7 +146,6 @@ public:
 protected:
 	virtual void SetEntity(Entity*);
 };
-
 
 
 class Interactable : public virtual IComponent {

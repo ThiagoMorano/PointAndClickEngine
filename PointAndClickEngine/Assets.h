@@ -38,3 +38,15 @@ public:
 	FontAsset(sf::Font*);
 	~FontAsset();
 };
+
+class SpriteSheetAsset : public Asset {
+public:
+	sf::Texture* sprite_sheet_;
+	int width_;
+	int height_;
+
+	SpriteSheetAsset();
+	SpriteSheetAsset(sf::Texture*, int width, int height);
+	~SpriteSheetAsset();
+
+};
