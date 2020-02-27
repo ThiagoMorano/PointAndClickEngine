@@ -146,14 +146,14 @@ void CharacterController::CalculateDirection(sf::Transformable* transformable) {
 }
 
 void CharacterController::Move(sf::Transformable* transformable) {
-	transformable->move(speed_ * direction_);
+	transformable->move(speed_ * direction_ * Time::Instance()->DeltaTime());
 }
 
 bool CharacterController::ArrivedAtDestination(sf::Transformable* transformable) {
 	sf::Vector2f distance_vector = destination_ - transformable->getPosition();
 	float distance = sqrtf(distance_vector.x * distance_vector.x + distance_vector.y * distance_vector.y);
 
-	if (abs(distance) < speed_) {
+	if (abs(distance) < speed_ * Time::Instance()->DeltaTime()) {
 		transformable->setPosition(destination_);
 		return true;
 	}

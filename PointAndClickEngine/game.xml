@@ -55,7 +55,7 @@
           <scale x="0.5" y="0.5"></scale>
         </transform>
         <components>
-          <characterController speed="5"></characterController>
+          <characterController speed="300"></characterController>
           <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
@@ -151,7 +151,7 @@
           <scale x="0.5" y="0.5"></scale>
         </transform>
         <components>
-          <characterController speed="5"></characterController>
+          <characterController speed="300"></characterController>
           <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>

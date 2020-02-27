@@ -64,6 +64,7 @@ void Game::LoadScene(Scene* scene) {
 	for (it = (current_scene_->character_controllers_).begin(); it != (current_scene_->character_controllers_).end(); it++) {
 		(*it)->StopMovement();
 	}
+	current_scene_->StopShowingText();
 	current_scene_ = scene;
 }
 
