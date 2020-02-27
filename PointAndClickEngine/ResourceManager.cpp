@@ -1,4 +1,6 @@
 #include "ResourceManager.h"
+#include "AssetFactory.h"
+#include "EntityFactory.h"
 
 #pragma region Utils
 rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag) {
@@ -26,6 +28,8 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 #pragma region ResourceManager
 ResourceManager::~ResourceManager() {
 	delete(buffer_);
+	delete(asset_factory_);
+	delete(entity_factory_);
 
 	DeleteAssetList();
 	DeleteSceneList();
@@ -48,6 +52,9 @@ void ResourceManager::DeleteSceneList() {
 }
 
 ResourceManager::ResourceManager(std::string game_file_name) {
+	asset_factory_ = new AssetFactory(this);
+	entity_factory_ = new EntityFactory(this);
+
 	LoadFileData(game_file_name);
 	LoadAssetList();
 	LoadSceneList();
@@ -77,10 +84,9 @@ void ResourceManager::LoadAssetList() {
 		if (attribute_iterator != NULL) {
 			resources_path_ = attribute_iterator->value();
 
-			AssetFactory asset_factory(&(*this));
 			Asset* new_asset;
 			for (node_iterator = node_iterator->first_node(); node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
-				new_asset = asset_factory.CreateAsset(node_iterator);
+				new_asset = asset_factory_->CreateAsset(node_iterator);
 				asset_list_->push_back(new_asset);
 			}
 		}
@@ -176,11 +182,10 @@ void ResourceManager::LoadSceneList() {
 
 void ResourceManager::LoadGameObjectsIntoScene(Scene* scene, rapidxml::xml_node<>* game_object_node) {
 	Entity* entity_pointer;
-	EntityFactory entity_factory(&(*this));
 
 	//Iterate through <gameObject> nodes
 	for (rapidxml::xml_node<>* node_iterator = game_object_node; node_iterator != NULL; node_iterator = node_iterator->next_sibling()) {
-		entity_pointer = entity_factory.CreateEntity(node_iterator);
+		entity_pointer = entity_factory_->CreateEntity(node_iterator);
 		entity_pointer->Init();
 		scene->AddEntity(entity_pointer);
 	}

@@ -1,3 +1,4 @@
+#include "AssetFactory.h"
 #include "ResourceManager.h"
 
 // Forward declarations of utility functions

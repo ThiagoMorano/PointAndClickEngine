@@ -13,7 +13,10 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Source Files\ResourceManager">
+    <Filter Include="Header Files\ResourceManagement">
+      <UniqueIdentifier>{138ea0be-21af-4d67-b6fd-841e5a745f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ResourceManagement">
       <UniqueIdentifier>{afc31e91-6a8e-4a8a-a744-97077976265a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,13 +40,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
-      <Filter>Source Files\ResourceManager</Filter>
+      <Filter>Source Files\ResourceManagement</Filter>
     </ClCompile>
     <ClCompile Include="EntityFactory.cpp">
-      <Filter>Source Files\ResourceManager</Filter>
+      <Filter>Source Files\ResourceManagement</Filter>
     </ClCompile>
     <ClCompile Include="AssetFactory.cpp">
-      <Filter>Source Files\ResourceManager</Filter>
+      <Filter>Source Files\ResourceManagement</Filter>
     </ClCompile>
     <ClCompile Include="Responses.cpp">
       <Filter>Source Files</Filter>
@@ -55,13 +58,7 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Assets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
@@ -78,6 +75,15 @@
     </ClInclude>
     <ClInclude Include="Responses.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityFactory.h">
+      <Filter>Header Files\ResourceManagement</Filter>
+    </ClInclude>
+    <ClInclude Include="AssetFactory.h">
+      <Filter>Header Files\ResourceManagement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

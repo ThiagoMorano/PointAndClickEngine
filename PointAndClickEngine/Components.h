@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics.h"
 #include <list>
+#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
 //Forward declarations
@@ -14,8 +14,7 @@ enum class ComponentType {
 	kInteractable
 };
 
-class IComponent
-{
+class IComponent {
 	friend class Entity;
 
 public:
@@ -28,6 +27,14 @@ public:
 protected:
 	virtual void SetEntity(Entity*) = 0;
 };
+
+class IRenderable {
+public:
+	virtual ~IRenderable() {};
+	virtual void Render(sf::RenderWindow*) = 0;
+};
+
+
 
 class SpriteRenderer : public virtual IComponent, public virtual IRenderable {
 public:

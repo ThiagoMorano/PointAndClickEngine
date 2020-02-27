@@ -3,7 +3,6 @@
 #include "ResourceManager.h"
 #include "Scene.h"
 #include "Assets.h"
-#include "Graphics.h"
 
 // Singleton
 class Game {

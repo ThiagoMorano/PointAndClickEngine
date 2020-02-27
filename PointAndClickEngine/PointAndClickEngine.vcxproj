@@ -160,11 +160,12 @@
     <Xml Include="game.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AssetFactory.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="EntityFactory.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="Graphics.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Responses.h" />
     <ClInclude Include="Scene.h" />
