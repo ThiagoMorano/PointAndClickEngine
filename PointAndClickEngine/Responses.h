@@ -49,6 +49,7 @@ public:
 	virtual void SetInteractable(Interactable*);
 
 	sf::Text* text_;
+	float time_to_show_text_;
 
 protected:
 	Interactable* interactable_;

@@ -155,6 +155,7 @@
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Responses.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="game.xml" />
@@ -169,6 +170,7 @@
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Responses.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

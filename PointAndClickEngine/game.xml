@@ -83,7 +83,7 @@
         <components>
           <spriteRenderer assetID="spr_Key" renderLayer="3"></spriteRenderer>
           <interactable>
-            <textResponse fontID="font_Arial">Thou needest no key to go though a magic door.</textResponse>
+            <textResponse fontID="font_Arial" time="5.0">Thou needest no key to go though a magic door.</textResponse>
           </interactable>
         </components>
       </gameObject>

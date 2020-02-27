@@ -145,11 +145,12 @@ TextResponse* EntityFactory::InstantiateResponse_Text(rapidxml::xml_node<>* text
 	TextResponse* text_response = new TextResponse();
 	
 	std::string font_id_ = GetAttributeValue(text_response_node, "fontID");
-	sf::Font* font_pointer = dynamic_cast<FontAsset*>(Game::instance()->resource_manager_->GetAssetOfID(font_id_))->font_;
+	sf::Font* font_pointer = dynamic_cast<FontAsset*>(Game::Instance()->resource_manager_->GetAssetOfID(font_id_))->font_;
 
 	text_response->text_ = new sf::Text();
 	text_response->text_->setFont(*font_pointer);
 	text_response->text_->setString(text_response_node->value());
+	text_response->time_to_show_text_ = static_cast<float>(atof(GetAttributeValue(text_response_node, "time")));
 
 	return text_response;
 }

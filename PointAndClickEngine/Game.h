@@ -1,15 +1,17 @@
 #pragma once
 #include <list>
 #include "ResourceManager.h"
+#include "Time.h"
 #include "Scene.h"
 #include "Assets.h"
+
 
 // Singleton
 class Game {
 public:
 	~Game();
 
-	static Game* instance();
+	static Game* Instance();
 
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
@@ -19,7 +21,7 @@ public:
 	void LoadSceneOfID(std::string);
 	void LoadScene(Scene*);
 
-	void ShowText(sf::Text*);
+	void ActivateText(sf::Text*, float);
 
 	sf::RenderWindow* window_;
 	ResourceManager* resource_manager_;

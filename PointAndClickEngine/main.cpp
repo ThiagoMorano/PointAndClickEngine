@@ -11,6 +11,7 @@
 
 
 Game* Game::instance_;
+Time* Time::instance_;
 
 int main() {
 	ResourceManager resource_manager("game.xml");
@@ -20,11 +21,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(gameConfig->screen_width_, gameConfig->screen_height_), gameConfig->application_name_);
 	window.setFramerateLimit(gameConfig->fps);
 
-	Game::instance()->Init(&window, &resource_manager);
-
-	sf::Sprite testing_sprite;
-	TextureAsset* text = dynamic_cast<TextureAsset*>(resource_manager.GetAssetOfID("spr_Key"));
-	testing_sprite.setTexture(*(text->texture_));
+	Game::Instance()->Init(&window, &resource_manager);
 
 	while (window.isOpen()) {
 		sf::Event event;
@@ -33,7 +30,7 @@ int main() {
 				window.close();
 		}
 
-		Game::instance()->GameLoop();
+		Game::Instance()->GameLoop();
 	}
 
 	delete(gameConfig);

@@ -28,7 +28,7 @@ void LoadSceneResponse::SetInteractable(Interactable* interactable) {
 }
 
 void LoadSceneResponse::Invoke() {
-	Game::instance()->LoadSceneOfID(scene_id_);
+	Game::Instance()->LoadSceneOfID(scene_id_);
 }
 
 
@@ -45,5 +45,5 @@ void TextResponse::SetInteractable(Interactable* interactable) {
 }
 
 void TextResponse::Invoke() {
-	Game::instance()->ShowText(text_);
+	Game::Instance()->ActivateText(text_, time_to_show_text_);
 }

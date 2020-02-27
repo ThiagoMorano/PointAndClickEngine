@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "Time.h"
 
 Scene::Scene() {}
 
@@ -42,9 +43,33 @@ void Scene::Render(sf::RenderWindow* window) {
 	}
 
 	if (should_show_text_) {
-		window->draw(*text_to_show_);
+		ShowText(window);
 	}
 }
+
+void Scene::ShowText(sf::RenderWindow* window) {
+	if (elapsed_time_text_ < time_to_show_text_) {
+		elapsed_time_text_ += Time::Instance()->DeltaTime();
+		window->draw(*text_to_show_);
+	}
+	else {
+		StopShowingText();
+	}
+}
+
+void Scene::StopShowingText() {
+	should_show_text_ = false;
+	elapsed_time_text_ = 0.0f;
+	text_to_show_ = NULL;
+}
+
+void Scene::ActivateText(sf::Text* text, float time) {
+	should_show_text_ = true;
+	text_to_show_ = text;
+	time_to_show_text_ = time;
+	elapsed_time_text_ = 0.0f;
+}
+
 
 void Scene::AddEntity(Entity* entity) {
 	entities_.push_back(entity);
@@ -85,14 +110,4 @@ bool Scene::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer)
 		}
 	}
 	return false;
-}
-
-void Scene::ShowText(sf::Text* text) {
-	should_show_text_ = true;
-	text_to_show_ = text;
-}
-
-void Scene::StopShowingText() {
-	should_show_text_ = false;
-	text_to_show_ = NULL;
 }

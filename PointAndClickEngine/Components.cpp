@@ -136,8 +136,8 @@ void CharacterController::Update(sf::Transformable* transformable) {
 }
 
 void CharacterController::CalculateDirection(sf::Transformable* transformable) {
-	destination_.x = static_cast<float>(sf::Mouse::getPosition(*Game::instance()->window_).x);
-	destination_.y = static_cast<float>(sf::Mouse::getPosition(*Game::instance()->window_).y);
+	destination_.x = static_cast<float>(sf::Mouse::getPosition(*Game::Instance()->window_).x);
+	destination_.y = static_cast<float>(sf::Mouse::getPosition(*Game::Instance()->window_).y);
 
 	direction_ = destination_ - transformable->getPosition();
 	float direction_length = sqrtf((direction_.x * direction_.x + direction_.y * direction_.y));
@@ -241,7 +241,7 @@ void Interactable::SetEntity(Entity* entity) {
 
 void Interactable::Update(sf::Transformable* transformable) {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-		sf::Vector2i mouse_position = sf::Mouse::getPosition(*Game::instance()->window_);
+		sf::Vector2i mouse_position = sf::Mouse::getPosition(*Game::Instance()->window_);
 		if (sprite_renderer_->CheckOverlap(mouse_position)) {
 			was_clicked_on_ = true;
 		}
@@ -260,7 +260,7 @@ void Interactable::Update(sf::Transformable* transformable) {
 
 bool Interactable::CheckOverlapWithCharacterControllers() {
 	if (sprite_renderer_ != NULL) {
-		return Game::instance()->CheckOverlapWithCharacterController(sprite_renderer_);
+		return Game::Instance()->CheckOverlapWithCharacterController(sprite_renderer_);
 	}
 
 	return false;

@@ -1,7 +1,6 @@
 #include "Game.h"
 
-
-Game* Game::instance() {
+Game* Game::Instance() {
 	if (instance_ == NULL) {
 		instance_ = new Game();
 	}
@@ -22,9 +21,13 @@ void Game::Init(sf::RenderWindow* window, ResourceManager* resource_manager) {
 	resource_manager_->Init();
 	scenes_ = resource_manager_->GetSceneList();
 	current_scene_ = scenes_->front();
+
+	Time::Init();
+
 }
 
 void Game::GameLoop() {
+	Time::Instance()->NewFrame();
 	Update();
 	Render();
 }
@@ -65,6 +68,6 @@ void Game::LoadScene(Scene* scene) {
 }
 
 
-void Game::ShowText(sf::Text* text) {
-	current_scene_->ShowText(text);
+void Game::ActivateText(sf::Text* text, float time) {
+	current_scene_->ActivateText(text, time);
 }
