@@ -18,6 +18,9 @@ Asset* AssetFactory::CreateAsset(rapidxml::xml_node<>* asset_node) {
 	else if (type.compare("sound") == 0) {
 		asset = InstantiateSoundBufferAsset(asset_node);
 	}
+	else if (type.compare("font") == 0) {
+		asset = InstantiateFontAsset(asset_node);
+	}
 
 	asset->id_ = GetAttributeValue(asset_node, "id");
 
@@ -35,4 +38,10 @@ SoundBufferAsset* AssetFactory::InstantiateSoundBufferAsset(rapidxml::xml_node<>
 	sf::SoundBuffer* new_sound = new sf::SoundBuffer();
 	new_sound->loadFromFile(resource_manager_->GetResourcesPath() + asset_node->value());
 	return new SoundBufferAsset(new_sound);
+}
+
+FontAsset* AssetFactory::InstantiateFontAsset(rapidxml::xml_node<>* asset_node) {
+	sf::Font* new_font = new sf::Font();
+	new_font->loadFromFile(resource_manager_->GetResourcesPath() + asset_node->value());
+	return new FontAsset(new_font);
 }

@@ -10,6 +10,7 @@ class IResponse;
 enum class ComponentType {
 	kCharacterController,
 	kSpriteRenderer,
+	kAnimatedSprite,
 	kAudioSource,
 	kInteractable
 };
@@ -60,6 +61,30 @@ protected:
 	virtual void SetEntity(Entity*);
 
 	sf::Sprite* sprite_;
+};
+
+class AnimatedSprite : public virtual IComponent, public virtual IRenderable {
+public:
+	Entity* entity_;
+	int render_layer_;
+
+	virtual ~AnimatedSprite();
+	virtual void Init();
+	virtual void Update(sf::Transformable*);
+	virtual void Render(sf::RenderWindow*);
+	virtual int GetRenderLayer();
+	virtual ComponentType GetComponentType();
+	virtual IComponent* GetComponent(ComponentType);
+
+	void SetSprite(sf::Sprite*);
+	bool CheckOverlap(sf::Vector2i);
+	bool CheckOverlap(SpriteRenderer*);
+
+protected:
+	virtual void SetEntity(Entity*);
+
+	sf::Sprite* current_sprite_;
+	std::vector<sf::Sprite*> sprites_;
 };
 
 class CharacterController : public virtual IComponent {

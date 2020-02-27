@@ -19,6 +19,8 @@ public:
 	void LoadSceneOfID(std::string);
 	void LoadScene(Scene*);
 
+	void ShowText(sf::Text*);
+
 	sf::RenderWindow* window_;
 	ResourceManager* resource_manager_;
 
@@ -29,7 +31,8 @@ private:
 
 	std::list<Scene*>* scenes_;
 	Scene* current_scene_;
-
+	
+	sf::Text text_to_show_;
 
 	void Update();
 	void Render();

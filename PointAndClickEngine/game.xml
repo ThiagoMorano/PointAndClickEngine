@@ -7,9 +7,11 @@
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
     <asset type="image" id="spr_Key">key.png</asset>
+    <!--<asset type="animation" id="sprsheet_Fire">Small_Fireball_10x26.png</asset>-->
+    <asset type="font" id="font_Arial">arial.ttf</asset>
 
-    <!-- Scene 2 -->
-    <asset type="image" id="spr_Door0">Door01.png</asset>
+    <!-- Scene 1 -->
+    <asset type="image" id="spr_Door1">Door01.png</asset>
     <asset type="image" id="spr_Scene1_Background0">far-buildings.png</asset>
     <asset type="image" id="spr_Scene1_Background1">foreground.png</asset>
     
@@ -19,7 +21,7 @@
     <asset type="image" id="spr_Scene2_Background2">parallax-space-big-planet.png</asset>
     <asset type="image" id="spr_Scene2_Background3">parallax-space-ring-planet.png</asset>
     <asset type="image" id="spr_Scene2_Background4">parallax-space-stars.png</asset>
-    <asset type="image" id="spr_Door1">Door02.png</asset>
+    <asset type="image" id="spr_Door2">Door02.png</asset>
   </resources>
   <scenes>
     <scene id="scene1">
@@ -57,14 +59,14 @@
           <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
-      <gameObject id="door0">
+      <gameObject id="door1">
         <transform>
           <position x="950.0" y="705"></position>
           <rotation angle="0.0"></rotation>
           <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Door0" renderLayer="3"></spriteRenderer>
+          <spriteRenderer assetID="spr_Door1" renderLayer="3"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>
@@ -72,6 +74,20 @@
           </interactable>
         </components>
       </gameObject>
+      <gameObject id="key">
+        <transform>
+          <position x="550.0" y="705"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="1.0" y="1.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Key" renderLayer="3"></spriteRenderer>
+          <interactable>
+            <textResponse fontID="font_Arial">Thou needest no key to go though a magic door.</textResponse>
+          </interactable>
+        </components>
+      </gameObject>
+
     </scene>
     
     <scene id="scene2">
@@ -139,14 +155,14 @@
           <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
-      <gameObject id="door1">
+      <gameObject id="door2">
         <transform>
           <position x="90.0" y="150"></position>
           <rotation angle="0.0"></rotation>
           <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Door1" renderLayer="3"></spriteRenderer>
+          <spriteRenderer assetID="spr_Door2" renderLayer="3"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>

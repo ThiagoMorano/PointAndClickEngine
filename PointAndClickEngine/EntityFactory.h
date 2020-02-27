@@ -29,4 +29,5 @@ private:
 	IResponse* InstantiateReponse(rapidxml::xml_node<>*);
 	AudioResponse* InstantiateResponse_Audio(rapidxml::xml_node<>*);
 	LoadSceneResponse* InstantiateResponse_LoadScene(rapidxml::xml_node<>*);
+	TextResponse* InstantiateResponse_Text(rapidxml::xml_node<>*);
 };

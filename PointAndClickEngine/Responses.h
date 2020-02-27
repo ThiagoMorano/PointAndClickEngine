@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "SFML/Graphics.hpp"
 
 //Forward declarations
 class AudioSource;
@@ -38,4 +39,18 @@ public:
 
 protected:
 	Interactable* interactable_;
+};
+
+class TextResponse : public virtual IResponse {
+public:
+	virtual ~TextResponse();
+	virtual void Init();
+	virtual void Invoke();
+	virtual void SetInteractable(Interactable*);
+
+	sf::Text* text_;
+
+protected:
+	Interactable* interactable_;
+
 };

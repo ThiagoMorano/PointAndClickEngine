@@ -19,6 +19,7 @@ void Game::Init(sf::RenderWindow* window, ResourceManager* resource_manager) {
 	window_ = window;
 	resource_manager_ = resource_manager;
 
+	resource_manager_->Init();
 	scenes_ = resource_manager_->GetSceneList();
 	current_scene_ = scenes_->front();
 }
@@ -61,4 +62,9 @@ void Game::LoadScene(Scene* scene) {
 		(*it)->StopMovement();
 	}
 	current_scene_ = scene;
+}
+
+
+void Game::ShowText(sf::Text* text) {
+	current_scene_->ShowText(text);
 }

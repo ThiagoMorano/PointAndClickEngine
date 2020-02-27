@@ -19,6 +19,7 @@ void AudioResponse::Invoke() {
 
 
 
+
 LoadSceneResponse::~LoadSceneResponse() {}
 void LoadSceneResponse::Init() {}
 
@@ -28,4 +29,21 @@ void LoadSceneResponse::SetInteractable(Interactable* interactable) {
 
 void LoadSceneResponse::Invoke() {
 	Game::instance()->LoadSceneOfID(scene_id_);
+}
+
+
+
+
+TextResponse::~TextResponse() {
+	delete(text_);
+}
+
+void TextResponse::Init() {}
+
+void TextResponse::SetInteractable(Interactable* interactable) {
+	interactable_ = interactable;
+}
+
+void TextResponse::Invoke() {
+	Game::instance()->ShowText(text_);
 }

@@ -17,4 +17,5 @@ private:
 
 	TextureAsset* InstantiateTextureAsset(rapidxml::xml_node<>*);
 	SoundBufferAsset* InstantiateSoundBufferAsset(rapidxml::xml_node<>*);
+	FontAsset* InstantiateFontAsset(rapidxml::xml_node<>*);
 };

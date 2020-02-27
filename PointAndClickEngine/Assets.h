@@ -29,3 +29,12 @@ public:
 	SoundBufferAsset(sf::SoundBuffer*);
 	~SoundBufferAsset();
 };
+
+class FontAsset : public Asset {
+public:
+	sf::Font* font_;
+
+	FontAsset();
+	FontAsset(sf::Font*);
+	~FontAsset();
+};

@@ -25,6 +25,8 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name) 
 }
 #pragma endregion
 
+
+
 #pragma region ResourceManager
 ResourceManager::~ResourceManager() {
 	delete(buffer_);
@@ -54,9 +56,12 @@ void ResourceManager::DeleteSceneList() {
 ResourceManager::ResourceManager(std::string game_file_name) {
 	asset_factory_ = new AssetFactory(this);
 	entity_factory_ = new EntityFactory(this);
-
+	
 	LoadFileData(game_file_name);
 	LoadAssetList();
+}
+
+void ResourceManager::Init() {
 	LoadSceneList();
 }
 

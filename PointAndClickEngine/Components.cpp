@@ -7,7 +7,11 @@ SpriteRenderer::~SpriteRenderer() {
 	delete(sprite_);
 }
 
-void SpriteRenderer::Init() {}
+void SpriteRenderer::Init() {
+	sprite_->setPosition((entity_->transformable_).getPosition());
+	sprite_->setRotation((entity_->transformable_).getRotation());
+	sprite_->setScale((entity_->transformable_).getScale());
+}
 
 void SpriteRenderer::Render(sf::RenderWindow* window) {
 	window->draw(*sprite_);
@@ -30,9 +34,9 @@ void SpriteRenderer::SetEntity(Entity* entity) {
 }
 
 void SpriteRenderer::Update(sf::Transformable* transformable) {
-	sprite_->setPosition(transformable->getPosition());
-	sprite_->setRotation(transformable->getRotation());
-	sprite_->setScale(transformable->getScale());
+	sprite_->setPosition((entity_->transformable_).getPosition());
+	sprite_->setRotation((entity_->transformable_).getRotation());
+	sprite_->setScale((entity_->transformable_).getScale());
 }
 
 void SpriteRenderer::SetSprite(sf::Sprite* sprite) {
@@ -50,6 +54,45 @@ bool SpriteRenderer::CheckOverlap(SpriteRenderer* renderer) {
 	bool intersected = sprite_->getGlobalBounds().intersects(renderer->sprite_->getGlobalBounds());
 	return intersected;
 }
+#pragma endregion
+
+
+
+#pragma region AnimatedSprite
+AnimatedSprite::~AnimatedSprite() {
+	std::vector<sf::Sprite*>::iterator it;
+	for (it = sprites_.begin(); it != sprites_.end(); it++) {
+		delete(*it);
+	}
+}
+
+void AnimatedSprite::Init() {
+	current_sprite_->setPosition((entity_->transformable_).getPosition());
+	current_sprite_->setRotation((entity_->transformable_).getRotation());
+	current_sprite_->setScale((entity_->transformable_).getScale());
+}
+void AnimatedSprite::Update(sf::Transformable*) {
+	current_sprite_->setPosition((entity_->transformable_).getPosition());
+	current_sprite_->setRotation((entity_->transformable_).getRotation());
+	current_sprite_->setScale((entity_->transformable_).getScale());
+}
+void AnimatedSprite::Render(sf::RenderWindow*) {}
+int AnimatedSprite::GetRenderLayer() { return render_layer_; }
+ComponentType AnimatedSprite::GetComponentType() { return ComponentType::kAnimatedSprite; }
+IComponent* AnimatedSprite::GetComponent(ComponentType) { return NULL; }
+
+void AnimatedSprite::SetSprite(sf::Sprite*) {}
+bool AnimatedSprite::CheckOverlap(sf::Vector2i) {
+	return false;
+}
+bool AnimatedSprite::CheckOverlap(SpriteRenderer*) {
+	return false;
+}
+
+void AnimatedSprite::SetEntity(Entity* entity) {
+	entity_ = entity;
+}
+
 #pragma endregion
 
 

@@ -1,5 +1,6 @@
 #include "EntityFactory.h"
 #include "ResourceManager.h"
+#include "Game.h"
 
 // Forward declarations of utility functions
 rapidxml::xml_node<>* FindChildNode(rapidxml::xml_node<>* node, const char* node_tag);
@@ -122,6 +123,9 @@ IResponse* EntityFactory::InstantiateReponse(rapidxml::xml_node<>* response_node
 	else if (response_type.compare("loadSceneResponse") == 0) {
 		response = dynamic_cast<IResponse*>(InstantiateResponse_LoadScene(response_node));
 	}
+	else if (response_type.compare("textResponse") == 0) {
+		response = dynamic_cast<IResponse*>(InstantiateResponse_Text(response_node));
+	}
 
 	return response;
 }
@@ -135,6 +139,19 @@ LoadSceneResponse* EntityFactory::InstantiateResponse_LoadScene(rapidxml::xml_no
 	LoadSceneResponse* load_scene_response = new LoadSceneResponse();
 	load_scene_response->scene_id_ = GetAttributeValue(load_scene_response_node, "nextSceneID");
 	return load_scene_response;
+}
+
+TextResponse* EntityFactory::InstantiateResponse_Text(rapidxml::xml_node<>* text_response_node) {
+	TextResponse* text_response = new TextResponse();
+	
+	std::string font_id_ = GetAttributeValue(text_response_node, "fontID");
+	sf::Font* font_pointer = dynamic_cast<FontAsset*>(Game::instance()->resource_manager_->GetAssetOfID(font_id_))->font_;
+
+	text_response->text_ = new sf::Text();
+	text_response->text_->setFont(*font_pointer);
+	text_response->text_->setString(text_response_node->value());
+
+	return text_response;
 }
 
 void EntityFactory::InitializeTransformable(Entity* entity, rapidxml::xml_node<>* node) {

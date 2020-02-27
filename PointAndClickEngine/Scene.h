@@ -23,4 +23,11 @@ public:
 	void AddRenderer(IRenderable*);
 
 	bool CheckOverlapWithCharacterController(SpriteRenderer*);
+	void ShowText(sf::Text*);
+	void StopShowingText();
+
+private:
+	sf::Text* text_to_show_;
+	bool should_show_text_;
+	//sf::Vector2i text_position_;
 };

@@ -34,8 +34,10 @@ public:
 
 class ResourceManager {
 public:
-	ResourceManager(std::string);
 	~ResourceManager();
+	ResourceManager(std::string);
+	
+	void Init();
 
 	void LoadFileData(std::string);
 

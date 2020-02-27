@@ -40,6 +40,10 @@ void Scene::Render(sf::RenderWindow* window) {
 		(*it)->Render(window);
 
 	}
+
+	if (should_show_text_) {
+		window->draw(*text_to_show_);
+	}
 }
 
 void Scene::AddEntity(Entity* entity) {
@@ -81,4 +85,14 @@ bool Scene::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer)
 		}
 	}
 	return false;
+}
+
+void Scene::ShowText(sf::Text* text) {
+	should_show_text_ = true;
+	text_to_show_ = text;
+}
+
+void Scene::StopShowingText() {
+	should_show_text_ = false;
+	text_to_show_ = NULL;
 }
