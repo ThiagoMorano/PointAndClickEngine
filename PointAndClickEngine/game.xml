@@ -18,7 +18,7 @@
         </transform>
         <components>
           <characterController speed="5"></characterController>
-          <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
+          <spriteRenderer assetID="spr_Wrestler" renderLayer="0"></spriteRenderer>
         </components>
       </gameObject>
       <gameObject id="key">
@@ -28,7 +28,7 @@
           <scale x="1.0" y="1.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Key"></spriteRenderer>
+          <spriteRenderer assetID="spr_Key" renderLayer="1"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>
@@ -46,7 +46,7 @@
         </transform>
         <components>
           <characterController speed="5"></characterController>
-          <spriteRenderer assetID="spr_Wrestler"></spriteRenderer>
+          <spriteRenderer assetID="spr_Wrestler" renderLayer="1"></spriteRenderer>
         </components>
       </gameObject>
       <gameObject id="key">
@@ -56,7 +56,7 @@
           <scale x="1.0" y="1.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Key"></spriteRenderer>
+          <spriteRenderer assetID="spr_Key" renderLayer="0"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>

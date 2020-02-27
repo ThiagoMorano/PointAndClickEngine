@@ -13,6 +13,10 @@ void SpriteRenderer::Render(sf::RenderWindow* window) {
 	window->draw(*sprite_);
 }
 
+int SpriteRenderer::GetRenderLayer() {
+	return render_layer_;
+}
+
 ComponentType SpriteRenderer::GetComponentType() {
 	return ComponentType::kSpriteRenderer;
 }

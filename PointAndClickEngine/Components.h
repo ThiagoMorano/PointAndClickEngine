@@ -32,6 +32,7 @@ class IRenderable {
 public:
 	virtual ~IRenderable() {};
 	virtual void Render(sf::RenderWindow*) = 0;
+	virtual int GetRenderLayer() = 0;
 };
 
 
@@ -39,11 +40,13 @@ public:
 class SpriteRenderer : public virtual IComponent, public virtual IRenderable {
 public:
 	Entity* entity_;
+	int render_layer_;
 
 	virtual ~SpriteRenderer();
 	virtual void Init();
-	virtual void Render(sf::RenderWindow*);
 	virtual void Update(sf::Transformable*);
+	virtual void Render(sf::RenderWindow*);
+	virtual int GetRenderLayer();
 	virtual ComponentType GetComponentType();
 	virtual IComponent* GetComponent(ComponentType);
 

@@ -82,6 +82,8 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* s
 	sprite->setTexture(*(texture_asset->texture_));
 	sprite_renderer->SetSprite(sprite);
 
+	sprite_renderer->render_layer_ = atoi(GetAttributeValue(sprite_renderer_node, "renderLayer"));
+
 	return sprite_renderer;
 }
 
