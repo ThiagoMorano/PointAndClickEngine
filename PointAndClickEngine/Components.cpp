@@ -202,6 +202,7 @@ void Interactable::Update(sf::Transformable* transformable) {
 	if (was_clicked_on_) {
 		if (CheckOverlapWithCharacterControllers()) {
 			Interact();
+			was_clicked_on_ = false;
 		}
 	}
 }
