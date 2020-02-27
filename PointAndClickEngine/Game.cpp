@@ -39,6 +39,7 @@ void Game::Update() {
 void Game::Render() {
 	window_->clear();
 	current_scene_->Render(window_);
+	user_interface_.Render(window_);
 	window_->display();
 }
 
@@ -60,15 +61,12 @@ void Game::LoadSceneOfID(std::string scene_id) {
 }
 
 void Game::LoadScene(Scene* scene) {
-	std::list<CharacterController*>::iterator it;
-	for (it = (current_scene_->character_controllers_).begin(); it != (current_scene_->character_controllers_).end(); it++) {
-		(*it)->StopMovement();
-	}
-	current_scene_->StopShowingText();
+	current_scene_->StopScene();
+	user_interface_.StopShowingText();
 	current_scene_ = scene;
 }
 
 
 void Game::ActivateText(sf::Text* text, float time) {
-	current_scene_->ActivateText(text, time);
+	user_interface_.ActivateText(text, time);
 }

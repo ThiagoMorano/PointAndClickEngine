@@ -24,52 +24,26 @@ void Scene::Render(sf::RenderWindow* window) {
 	for (it = active_renderers_4_.begin(); it != active_renderers_4_.end(); it++) {
 		(*it)->Render(window);
 	}
-
 	for (it = active_renderers_3_.begin(); it != active_renderers_3_.end(); it++) {
 		(*it)->Render(window);
 	}
-
 	for (it = active_renderers_2_.begin(); it != active_renderers_2_.end(); it++) {
 		(*it)->Render(window);
 	}
-
 	for (it = active_renderers_1_.begin(); it != active_renderers_1_.end(); it++) {
 		(*it)->Render(window);
 	}
-
 	for (it = active_renderers_0_.begin(); it != active_renderers_0_.end(); it++) {
 		(*it)->Render(window);
-
-	}
-
-	if (should_show_text_) {
-		ShowText(window);
 	}
 }
 
-void Scene::ShowText(sf::RenderWindow* window) {
-	if (elapsed_time_text_ < time_to_show_text_) {
-		elapsed_time_text_ += Time::Instance()->DeltaTime();
-		window->draw(*text_to_show_);
-	}
-	else {
-		StopShowingText();
+void Scene::StopScene() {
+	std::list<CharacterController*>::iterator it;
+	for (it = (character_controllers_).begin(); it != character_controllers_.end(); it++) {
+		(*it)->StopMovement();
 	}
 }
-
-void Scene::StopShowingText() {
-	should_show_text_ = false;
-	elapsed_time_text_ = 0.0f;
-	text_to_show_ = NULL;
-}
-
-void Scene::ActivateText(sf::Text* text, float time) {
-	should_show_text_ = true;
-	text_to_show_ = text;
-	time_to_show_text_ = time;
-	elapsed_time_text_ = 0.0f;
-}
-
 
 void Scene::AddEntity(Entity* entity) {
 	entities_.push_back(entity);

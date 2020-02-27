@@ -4,7 +4,7 @@
 #include "Time.h"
 #include "Scene.h"
 #include "Assets.h"
-
+#include "UserInterface.h"
 
 // Singleton
 class Game {
@@ -33,11 +33,10 @@ private:
 
 	std::list<Scene*>* scenes_;
 	Scene* current_scene_;
-	
-	sf::Text text_to_show_;
+
+	UserInterface user_interface_;
 
 	void Update();
 	void Render();
-
 	void RenderActiveObjects();
 };
