@@ -124,6 +124,10 @@ bool CharacterController::CheckOverlap(SpriteRenderer* sprite_renderer) {
 
 	return false;
 }
+
+void CharacterController::StopMovement() {
+	should_move_ = false;
+}
 #pragma endregion
 
 

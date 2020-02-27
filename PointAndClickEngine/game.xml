@@ -3,32 +3,68 @@
   <title>BestPointNClick</title>
   <window width="1280" height="800" fps="50"></window>
   <resources path="assets/">
+    
     <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="sound" id="sfx_Door">door.wav</asset>
     <asset type="image" id="spr_Key">key.png</asset>
-    <asset type="sound" id="sfx_Jump">jump.wav</asset>
+
+    <!-- Scene 2 -->
+    <asset type="image" id="spr_Door0">Door01.png</asset>
+    <asset type="image" id="spr_Scene1_Background0">far-buildings.png</asset>
+    <asset type="image" id="spr_Scene1_Background1">foreground.png</asset>
+    
+    <!-- Scene 2 -->
+    <asset type="image" id="spr_Scene2_Background0">parallax-space-backgound.png</asset>
+    <asset type="image" id="spr_Scene2_Background1">parallax-space-far-planets.png</asset>
+    <asset type="image" id="spr_Scene2_Background2">parallax-space-big-planet.png</asset>
+    <asset type="image" id="spr_Scene2_Background3">parallax-space-ring-planet.png</asset>
+    <asset type="image" id="spr_Scene2_Background4">parallax-space-stars.png</asset>
+    <asset type="image" id="spr_Door1">Door02.png</asset>
   </resources>
   <scenes>
     <scene id="scene1">
+      <!-- Background elements -->
+      <gameObject id="scn1_bckground0">
+        <transform>
+          <position x="640.0" y="400"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="4.2"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene1_Background0" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="scn1_bckground1">
+        <transform>
+          <position x="640.0" y="400"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="4.2"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene1_Background1" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      
+      <!-- Other objects -->
       <gameObject id="player">
         <transform>
-          <position x="90" y="150"></position>
+          <position x="90" y="700"></position>
           <rotation angle="0.0"></rotation>
           <scale x="0.5" y="0.5"></scale>
         </transform>
         <components>
           <characterController speed="5"></characterController>
-          <spriteRenderer assetID="spr_Wrestler" renderLayer="0"></spriteRenderer>
+          <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
-      <gameObject id="key">
+      <gameObject id="door0">
         <transform>
-          <position x="700.0" y="400"></position>
+          <position x="950.0" y="705"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="1.0" y="1.0"></scale>
+          <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Key" renderLayer="1"></spriteRenderer>
+          <spriteRenderer assetID="spr_Door0" renderLayer="3"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>
@@ -37,26 +73,80 @@
         </components>
       </gameObject>
     </scene>
+    
     <scene id="scene2">
+      <!-- Background elements -->
+      <gameObject id="scn2_bckground0">
+        <transform>
+          <position x="640.0" y="400"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene2_Background0" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="scn2_bckground1">
+        <transform>
+          <position x="640.0" y="400"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene2_Background1" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="scn2_bckground2">
+        <transform>
+          <position x="800.0" y="300"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene2_Background2" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="scn2_bckground3">
+        <transform>
+          <position x="300.0" y="500"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene2_Background3" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      <gameObject id="scn2_bckground4">
+        <transform>
+          <position x="640.0" y="400"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Scene2_Background4" renderLayer="4"></spriteRenderer>
+        </components>
+      </gameObject>
+      
+      <!-- Other objects -->
       <gameObject id="player">
         <transform>
-          <position x="90" y="150"></position>
+          <position x="200" y="150"></position>
           <rotation angle="0.0"></rotation>
           <scale x="0.5" y="0.5"></scale>
         </transform>
         <components>
           <characterController speed="5"></characterController>
-          <spriteRenderer assetID="spr_Wrestler" renderLayer="1"></spriteRenderer>
+          <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
-      <gameObject id="key">
+      <gameObject id="door1">
         <transform>
-          <position x="700.0" y="400"></position>
+          <position x="90.0" y="150"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="1.0" y="1.0"></scale>
+          <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Key" renderLayer="0"></spriteRenderer>
+          <spriteRenderer assetID="spr_Door1" renderLayer="3"></spriteRenderer>
           <audioSource assetID="sfx_Door"></audioSource>
           <interactable>
             <soundResponse></soundResponse>

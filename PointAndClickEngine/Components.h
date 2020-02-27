@@ -74,6 +74,7 @@ public:
 	virtual IComponent* GetComponent(ComponentType);
 
 	bool CheckOverlap(SpriteRenderer*);
+	void StopMovement();
 
 private:
 	bool should_move_;

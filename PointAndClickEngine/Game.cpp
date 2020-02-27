@@ -56,5 +56,9 @@ void Game::LoadSceneOfID(std::string scene_id) {
 }
 
 void Game::LoadScene(Scene* scene) {
+	std::list<CharacterController*>::iterator it;
+	for (it = (current_scene_->character_controllers_).begin(); it != (current_scene_->character_controllers_).end(); it++) {
+		(*it)->StopMovement();
+	}
 	current_scene_ = scene;
 }
