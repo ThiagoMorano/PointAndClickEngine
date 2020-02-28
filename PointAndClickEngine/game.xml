@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data>
-  <title>BestPointNClick</title>
+  <title>AwesomePointNClick</title>
   <window width="1280" height="800" fps="50"></window>
   <resources path="assets/">
 
@@ -168,8 +168,8 @@
           <scale x="4.0" y="4.0"></scale>
         </transform>
         <components>
-          <animatedSprite assetID="spr_sheet_Fire" renderLayer="2" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
           <characterController speed="300"></characterController>
+          <animatedSprite assetID="spr_sheet_Fire" renderLayer="2" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
         </components>
       </gameObject>
       <gameObject id="door2">
@@ -179,8 +179,8 @@
           <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
-          <spriteRenderer assetID="spr_Door2" renderLayer="3"></spriteRenderer>
           <audioSource assetID="sfx_Door2"></audioSource>
+          <spriteRenderer assetID="spr_Door2" renderLayer="3"></spriteRenderer>
           <interactable>
             <soundResponse></soundResponse>
             <loadSceneResponse nextSceneID="scene1"></loadSceneResponse>
