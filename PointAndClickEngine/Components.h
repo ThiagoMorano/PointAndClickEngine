@@ -22,8 +22,8 @@ public:
 	virtual ~IComponent() {};
 	virtual void Init() =0;
 	virtual void Update(sf::Transformable*) = 0;
-	virtual ComponentType GetComponentType() = 0;
 	virtual IComponent* GetComponent(ComponentType) = 0;
+	virtual bool IsOfType(ComponentType) = 0;
 
 protected:
 	virtual void SetEntity(Entity*) = 0;
@@ -48,7 +48,7 @@ public:
 	virtual void Update(sf::Transformable*);
 	virtual void Render(sf::RenderWindow*);
 	virtual int GetRenderLayer();
-	virtual ComponentType GetComponentType();
+	virtual bool IsOfType(ComponentType);
 	virtual IComponent* GetComponent(ComponentType);
 
 	virtual void SetSprite(sf::Sprite*);
@@ -75,7 +75,7 @@ public:
 	virtual void Update(sf::Transformable*);
 	virtual void Render(sf::RenderWindow*);
 	virtual int GetRenderLayer();
-	virtual ComponentType GetComponentType();
+	virtual bool IsOfType(ComponentType);
 	virtual IComponent* GetComponent(ComponentType);
 	
 	virtual void SetSprite(sf::Texture*);
@@ -107,7 +107,7 @@ public:
 	virtual ~CharacterController();
 	virtual void Init();
 	virtual void Update(sf::Transformable*);
-	virtual ComponentType GetComponentType();
+	virtual bool IsOfType(ComponentType);
 	virtual IComponent* GetComponent(ComponentType);
 
 	bool CheckOverlap(SpriteRenderer*);
@@ -136,7 +136,7 @@ public:
 	virtual ~AudioSource();
 	virtual void Init();
 	virtual void Update(sf::Transformable*);
-	virtual ComponentType GetComponentType();
+	virtual bool IsOfType(ComponentType);
 	virtual IComponent* GetComponent(ComponentType);
 
 	void Play();
@@ -155,7 +155,7 @@ public:
 	virtual ~Interactable();
 	virtual void Init();
 	virtual void Update(sf::Transformable*);
-	virtual ComponentType GetComponentType();
+	virtual bool IsOfType(ComponentType);
 	virtual IComponent* GetComponent(ComponentType);
 
 

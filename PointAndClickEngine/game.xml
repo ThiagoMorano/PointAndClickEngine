@@ -54,11 +54,13 @@
         <transform>
           <position x="90" y="700"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="0.5" y="0.5"></scale>
+          <scale x="4.0" y="4.0"></scale>
+          <!--<scale x="0.5" y="0.5"></scale>-->
         </transform>
         <components>
+          <animatedSprite assetID="spr_sheet_Fire" renderLayer="3" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
           <characterController speed="300"></characterController>
-          <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
+          <!--<spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>-->
         </components>
       </gameObject>
       <gameObject id="door1">
@@ -97,9 +99,9 @@
         </transform>
         <components>
           <animatedSprite assetID="spr_sheet_Fire" renderLayer="3" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
-          <!--<interactable>
+          <interactable>
             <textResponse fontID="font_Arial" time="5.0">I'M A FIREBALL!</textResponse>
-          </interactable> -->
+          </interactable>
         </components>
       </gameObject>
 

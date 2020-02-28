@@ -21,8 +21,11 @@ int SpriteRenderer::GetRenderLayer() {
 	return render_layer_;
 }
 
-ComponentType SpriteRenderer::GetComponentType() {
-	return ComponentType::kSpriteRenderer;
+bool SpriteRenderer::IsOfType(ComponentType component_type) {
+	if (component_type == ComponentType::kSpriteRenderer)
+		return true;
+	else
+		return false;
 }
 
 IComponent* SpriteRenderer::GetComponent(ComponentType component_type) {
@@ -55,7 +58,7 @@ bool SpriteRenderer::CheckOverlap(sf::Vector2i vector) {
 }
 
 bool SpriteRenderer::CheckOverlap(SpriteRenderer* renderer) {
-	bool intersected = sprite_->getGlobalBounds().intersects(renderer->sprite_->getGlobalBounds());
+	bool intersected = sprite_->getGlobalBounds().intersects(renderer->GetSprite()->getGlobalBounds());
 	return intersected;
 }
 #pragma endregion
@@ -72,6 +75,7 @@ AnimatedSprite::~AnimatedSprite() {
 void AnimatedSprite::Init() {
 	std::vector<sf::Sprite*>::iterator it;
 	for (it = sprites_.begin(); it != sprites_.end(); it++) {
+		(*it)->setOrigin((*it)->getGlobalBounds().width / 2, (*it)->getGlobalBounds().height / 2);
 		(*it)->setPosition((entity_->transformable_).getPosition());
 		(*it)->setRotation((entity_->transformable_).getRotation());
 		(*it)->setScale((entity_->transformable_).getScale());
@@ -110,8 +114,11 @@ int AnimatedSprite::GetRenderLayer() {
 	return render_layer_;
 }
 
-ComponentType AnimatedSprite::GetComponentType() {
-	return ComponentType::kAnimatedSprite;
+bool AnimatedSprite::IsOfType(ComponentType component_type) {
+	if (component_type == ComponentType::kSpriteRenderer || component_type == ComponentType::kAnimatedSprite)
+		return true;
+	else
+		return false;
 }
 
 IComponent* AnimatedSprite::GetComponent(ComponentType component_type) {
@@ -167,8 +174,11 @@ void CharacterController::Init() {
 	sprite_renderer_ = dynamic_cast<SpriteRenderer*>(GetComponent(ComponentType::kSpriteRenderer));
 }
 
-ComponentType CharacterController::GetComponentType() {
-	return ComponentType::kCharacterController;
+bool CharacterController::IsOfType(ComponentType component_type) {
+	if (component_type == ComponentType::kCharacterController)
+		return true;
+	else
+		return false;
 }
 
 IComponent* CharacterController::GetComponent(ComponentType component_type) {
@@ -243,8 +253,11 @@ AudioSource::~AudioSource() {
 
 void AudioSource::Init() {}
 
-ComponentType AudioSource::GetComponentType() {
-	return ComponentType::kAudioSource;
+bool AudioSource::IsOfType(ComponentType component_type) {
+	if (component_type == ComponentType::kAudioSource)
+		return true;
+	else
+		return false;
 }
 
 IComponent* AudioSource::GetComponent(ComponentType component_type) {
@@ -288,8 +301,11 @@ void Interactable::Init() {
 	}
 }
 
-ComponentType Interactable::GetComponentType() {
-	return ComponentType::kInteractable;
+bool Interactable::IsOfType(ComponentType component_type) {
+	if (component_type == ComponentType::kInteractable)
+		return true;
+	else
+		return false;
 }
 
 IComponent* Interactable::GetComponent(ComponentType component_type) {
