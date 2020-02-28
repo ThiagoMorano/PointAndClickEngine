@@ -1,3 +1,6 @@
+Wrestler artwork provided by professor Waldemar Fast
+Key artwork provided by professor Markus Hettlich
+
 Background artwork created by Luis Zuno (@ansimuz)
 	https://ansimuz.itch.io/cyberpunk-street-environment
 	https://ansimuz.itch.io/space-background
@@ -7,5 +10,12 @@ Doors artwork created by Cristian
 	https://cristian89.itch.io/2d-door
 
 
-Fire balls created by stealthix
+Fireballs artwork created by stealthix
 	https://stealthix.itch.io/animated-fires
+
+
+Door1 sound created by JarredGibb
+	https://freesound.org/people/JarredGibb/sounds/219487/
+
+Door2 sound created by SeanSecret
+	https://freesound.org/people/SeanSecret/sounds/440645/

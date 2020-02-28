@@ -3,27 +3,30 @@
   <title>BestPointNClick</title>
   <window width="1280" height="800" fps="50"></window>
   <resources path="assets/">
-    
-    <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
-    <asset type="sound" id="sfx_Door">door.wav</asset>
-    <asset type="image" id="spr_Key">key.png</asset>
-    
-    <asset type="image" id="spr_sheet_Fire">Small_Fireball_10x26.png</asset>
-    <!--<asset type="sprite_sheet" id="spr_sheet_Fire" keyframes="60" duration="2" singleWidth="6" singleHeight="10">Small_Fireball_10x26.png</asset> -->
+
     <asset type="font" id="font_Arial">arial.ttf</asset>
+    <asset type="image" id="spr_sheet_Fire">Small_Fireball_10x26.png</asset>
 
     <!-- Scene 1 -->
+    <asset type="image" id="spr_Key">key.png</asset>
+    <asset type="image" id="spr_Wrestler">wrestler.jpg</asset>
     <asset type="image" id="spr_Door1">Door01.png</asset>
+    <asset type="sound" id="sfx_Door1">door1.wav</asset>
+    
     <asset type="image" id="spr_Scene1_Background0">far-buildings.png</asset>
     <asset type="image" id="spr_Scene1_Background1">foreground.png</asset>
     
     <!-- Scene 2 -->
+    <asset type="image" id="spr_sheet_JumpingFire">Jumping_Small_Iceball_14x41.png</asset>
+    <asset type="image" id="spr_Door2">Door02.png</asset>
+    <asset type="sound" id="sfx_Door2">door2.wav</asset>
+
     <asset type="image" id="spr_Scene2_Background0">parallax-space-backgound.png</asset>
     <asset type="image" id="spr_Scene2_Background1">parallax-space-far-planets.png</asset>
     <asset type="image" id="spr_Scene2_Background2">parallax-space-big-planet.png</asset>
     <asset type="image" id="spr_Scene2_Background3">parallax-space-ring-planet.png</asset>
     <asset type="image" id="spr_Scene2_Background4">parallax-space-stars.png</asset>
-    <asset type="image" id="spr_Door2">Door02.png</asset>
+    
   </resources>
   <scenes>
     <scene id="scene1">
@@ -32,7 +35,7 @@
         <transform>
           <position x="640.0" y="400"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="5.0" y="4.2"></scale>
+          <scale x="5.0" y="4.5"></scale>
         </transform>
         <components>
           <spriteRenderer assetID="spr_Scene1_Background0" renderLayer="4"></spriteRenderer>
@@ -52,59 +55,56 @@
       <!-- Other objects -->
       <gameObject id="player">
         <transform>
-          <position x="90" y="700"></position>
+          <position x="50" y="700"></position>
           <rotation angle="0.0"></rotation>
           <scale x="4.0" y="4.0"></scale>
-          <!--<scale x="0.5" y="0.5"></scale>-->
         </transform>
         <components>
-          <animatedSprite assetID="spr_sheet_Fire" renderLayer="3" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
+          <animatedSprite assetID="spr_sheet_Fire" renderLayer="2" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
           <characterController speed="300"></characterController>
-          <!--<spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>-->
         </components>
       </gameObject>
       <gameObject id="door1">
         <transform>
-          <position x="950.0" y="705"></position>
+          <position x="900.0" y="705"></position>
           <rotation angle="0.0"></rotation>
           <scale x="5.0" y="5.0"></scale>
         </transform>
         <components>
           <spriteRenderer assetID="spr_Door1" renderLayer="3"></spriteRenderer>
-          <audioSource assetID="sfx_Door"></audioSource>
+          <audioSource assetID="sfx_Door1"></audioSource>
           <interactable>
             <soundResponse></soundResponse>
             <loadSceneResponse nextSceneID="scene2"></loadSceneResponse>
           </interactable>
         </components>
       </gameObject>
-      <gameObject id="key">
+      <gameObject id="key1">
         <transform>
-          <position x="550.0" y="705"></position>
+          <position x="450.0" y="705"></position>
           <rotation angle="0.0"></rotation>
           <scale x="1.0" y="1.0"></scale>
         </transform>
         <components>
           <spriteRenderer assetID="spr_Key" renderLayer="3"></spriteRenderer>
           <interactable>
-            <textResponse fontID="font_Arial" time="5.0">Thou needest no key to go though a magic door.</textResponse>
+            <textResponse fontID="font_Arial" time="5.0">Thou art fire. Thou needest no key.</textResponse>
           </interactable>
         </components>
       </gameObject>
-      <gameObject id="fireball">
+      <gameObject id="wrestler">
         <transform>
-          <position x="600.0" y="205"></position>
-          <rotation angle="0.0"></rotation>
-          <scale x="5.0" y="5.0"></scale>
+          <position x="1200.0" y="800"></position>
+          <rotation angle="-20.0"></rotation>
+          <scale x="0.6" y="0.6"></scale>
         </transform>
         <components>
-          <animatedSprite assetID="spr_sheet_Fire" renderLayer="3" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
+          <spriteRenderer assetID="spr_Wrestler" renderLayer="3"></spriteRenderer>
           <interactable>
-            <textResponse fontID="font_Arial" time="5.0">I'M A FIREBALL!</textResponse>
+            <textResponse fontID="font_Arial" time="5.0">I just agreed with this cameo for the free coffee :(</textResponse>
           </interactable>
         </components>
       </gameObject>
-
     </scene>
     
     <scene id="scene2">
@@ -163,13 +163,13 @@
       <!-- Other objects -->
       <gameObject id="player">
         <transform>
-          <position x="200" y="150"></position>
+          <position x="90" y="150"></position>
           <rotation angle="0.0"></rotation>
-          <scale x="0.5" y="0.5"></scale>
+          <scale x="4.0" y="4.0"></scale>
         </transform>
         <components>
+          <animatedSprite assetID="spr_sheet_Fire" renderLayer="2" keyframes="60" duration="5.0" frameWidth="10" frameHeight="26"></animatedSprite>
           <characterController speed="300"></characterController>
-          <spriteRenderer assetID="spr_Wrestler" renderLayer="2"></spriteRenderer>
         </components>
       </gameObject>
       <gameObject id="door2">
@@ -180,10 +180,36 @@
         </transform>
         <components>
           <spriteRenderer assetID="spr_Door2" renderLayer="3"></spriteRenderer>
-          <audioSource assetID="sfx_Door"></audioSource>
+          <audioSource assetID="sfx_Door2"></audioSource>
           <interactable>
             <soundResponse></soundResponse>
             <loadSceneResponse nextSceneID="scene1"></loadSceneResponse>
+          </interactable>
+        </components>
+      </gameObject>
+      <gameObject id="jumpingFireball">
+        <transform>
+          <position x="450.0" y="300"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="5.0" y="5.0"></scale>
+        </transform>
+        <components>
+          <animatedSprite assetID="spr_sheet_JumpingFire" renderLayer="3" keyframes="60" duration="0.5" frameWidth="14" frameHeight="41"></animatedSprite>
+          <interactable>
+            <textResponse fontID="font_Arial" time="5.0">I'M A JUMPING FIREBALL! IN SPACE!!!</textResponse>
+          </interactable>
+        </components>
+      </gameObject>
+      <gameObject id="key2">
+        <transform>
+          <position x="850.0" y="705"></position>
+          <rotation angle="0.0"></rotation>
+          <scale x="1.0" y="1.0"></scale>
+        </transform>
+        <components>
+          <spriteRenderer assetID="spr_Key" renderLayer="3"></spriteRenderer>
+          <interactable>
+            <textResponse fontID="font_Arial" time="5.0">Don't mind me, I'm just a key.</textResponse>
           </interactable>
         </components>
       </gameObject>
