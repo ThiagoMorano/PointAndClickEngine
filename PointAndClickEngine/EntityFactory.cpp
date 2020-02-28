@@ -86,8 +86,7 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* s
 	std::string asset_id = GetAttributeValue(sprite_renderer_node, "assetID");
 
 	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
-	sprite->setTexture(*(texture_asset->texture_));
-	sprite_renderer->SetSprite(sprite);
+	sprite_renderer->InitSprite(texture_asset->texture_);
 
 	sprite_renderer->render_layer_ = atoi(GetAttributeValue(sprite_renderer_node, "renderLayer"));
 
@@ -106,7 +105,7 @@ AnimatedSprite* EntityFactory::InstantiateAnimatedSprite(rapidxml::xml_node<>* a
 	animated_sprite->keyframe_height_ = atoi(GetAttributeValue(animated_sprite_node, "frameHeight"));
 
 	TextureAsset* texture_asset = dynamic_cast<TextureAsset*>(resource_manager_->GetAssetOfID(asset_id));
-	animated_sprite->SetSprite(texture_asset->texture_);
+	animated_sprite->InitSprite(texture_asset->texture_);
 
 	return animated_sprite;
 }

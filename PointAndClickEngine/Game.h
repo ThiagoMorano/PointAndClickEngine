@@ -6,6 +6,13 @@
 #include "Assets.h"
 #include "UserInterface.h"
 
+/// Game class is a singleton class that is responsible for the game flow.
+/// Its main method is the GameLoop(), which takes care of calling Update() and Render().
+///
+/// The class holds references to each scene of the game in the scenes_ list, while also
+/// holding a pointer to the scene that is currently active.
+
+
 // Singleton
 class Game {
 public:
