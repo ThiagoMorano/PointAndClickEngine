@@ -3,6 +3,10 @@
 #include <string>
 #include "Components.h"
 
+/// Entities are game objects that belong to a scene of the game
+/// An Entity works as a container of components, and its behaviour is defined by those components
+
+
 class Entity {
 public:
 	Entity();

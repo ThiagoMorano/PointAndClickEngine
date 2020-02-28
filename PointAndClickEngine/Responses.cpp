@@ -3,6 +3,7 @@
 #include "Game.h"
 
 
+#pragma region AudioResponse
 AudioResponse::~AudioResponse() {}
 
 void AudioResponse::Init() {
@@ -16,10 +17,11 @@ void AudioResponse::SetInteractable(Interactable* interactable) {
 void AudioResponse::Invoke() {
 	audio_source_->Play();
 }
+#pragma endregion
 
 
 
-
+#pragma region LoadSceneResponse
 LoadSceneResponse::~LoadSceneResponse() {}
 void LoadSceneResponse::Init() {}
 
@@ -30,10 +32,11 @@ void LoadSceneResponse::SetInteractable(Interactable* interactable) {
 void LoadSceneResponse::Invoke() {
 	Game::Instance()->LoadSceneOfID(scene_id_);
 }
+#pragma endregion
 
 
 
-
+#pragma region TextResponse
 TextResponse::~TextResponse() {
 	delete(text_);
 }
@@ -47,3 +50,4 @@ void TextResponse::SetInteractable(Interactable* interactable) {
 void TextResponse::Invoke() {
 	Game::Instance()->ActivateText(text_, time_to_show_text_);
 }
+#pragma endregion

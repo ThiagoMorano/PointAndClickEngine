@@ -1,6 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+/// User interface is used to render on top of the scene.
+/// It is also not dependent on the a specific scene.
+///
+/// Currently it's only used to display texts from textResponses
+
+
 class UserInterface
 {
 public:

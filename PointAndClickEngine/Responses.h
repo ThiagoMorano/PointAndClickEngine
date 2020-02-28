@@ -2,10 +2,15 @@
 #include <string>
 #include "SFML/Graphics.hpp"
 
+/// Responses are the feedback of interactions with Interactable components
+/// Their main method is Invoke(), which implements the expected feedback of each type of response
+
 //Forward declarations
 class AudioSource;
 class Interactable;
 
+
+// For a class to be a response, it must implement the IResponse interface
 class IResponse {
 public:
 	virtual ~IResponse() {}
@@ -15,6 +20,7 @@ public:
 };
 
 
+// A response that plays the audio of an audioSource component attached to the interactable entity
 class AudioResponse : public virtual IResponse {
 public:
 	virtual ~AudioResponse();
@@ -28,6 +34,8 @@ protected:
 	Interactable* interactable_;
 };
 
+
+// This response loads a new scene (defined by scene_id_).
 class LoadSceneResponse : public virtual IResponse {
 public:
 	virtual ~LoadSceneResponse();
@@ -41,6 +49,8 @@ protected:
 	Interactable* interactable_;
 };
 
+
+// Used to display a textual feedback on the user interface
 class TextResponse : public virtual IResponse {
 public:
 	virtual ~TextResponse();
@@ -53,5 +63,4 @@ public:
 
 protected:
 	Interactable* interactable_;
-
 };

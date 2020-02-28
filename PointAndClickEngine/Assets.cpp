@@ -31,11 +31,3 @@ FontAsset::~FontAsset() {
 	delete (font_);
 }
 #pragma endregion
-
-#pragma region SpriteSheetAsset
-SpriteSheetAsset::SpriteSheetAsset() : sprite_sheet_(NULL) {}
-SpriteSheetAsset::SpriteSheetAsset(sf::Texture* sprite_sheet, int width, int height) : sprite_sheet_(sprite_sheet), width_(width), height_(height) {}
-SpriteSheetAsset::~SpriteSheetAsset() {
-	delete(sprite_sheet_);
-}
-#pragma endregion

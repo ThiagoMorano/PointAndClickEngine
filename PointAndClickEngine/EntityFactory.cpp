@@ -10,6 +10,8 @@ char* GetAttributeValue(rapidxml::xml_node<>* node, const char* attribute_name);
 
 EntityFactory::EntityFactory(ResourceManager* res_manager) : resource_manager_(res_manager) {}
 
+
+// Instantiates an entity and populate it with components 
 Entity* EntityFactory::CreateEntity(rapidxml::xml_node<>* game_object_node) {
 	std::string id = GetAttributeValue(game_object_node, "id");
 	Entity* entity = new Entity(id);
@@ -27,6 +29,7 @@ Entity* EntityFactory::CreateEntity(rapidxml::xml_node<>* game_object_node) {
 	return entity;
 }
 
+// Instantiates the correct component based on component_node name
 IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_node) {
 	IComponent* component = NULL;
 
@@ -53,6 +56,7 @@ IComponent* EntityFactory::InstantiateComponent(rapidxml::xml_node<>* component_
 	return component;
 }
 
+// Function used to parse a string with the type of the component into the correct ComponentType
 ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 	if (type_name.compare("characterController") == 0) {
 		return ComponentType::kCharacterController;
@@ -71,6 +75,7 @@ ComponentType EntityFactory::ParseComponentType(std::string type_name) {
 	}
 }
 
+// Instantiates and sets up a component of type CharacterController
 CharacterController* EntityFactory::InstantiateCharacterController(rapidxml::xml_node<>* character_controller_node) {
 	CharacterController* character_controller = new CharacterController();
 
@@ -79,6 +84,7 @@ CharacterController* EntityFactory::InstantiateCharacterController(rapidxml::xml
 	return character_controller;
 }
 
+// Instantiates aand sets up a component of type SpriteRenderer
 SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* sprite_renderer_node) {
 	SpriteRenderer* sprite_renderer = new SpriteRenderer();
 	sf::Sprite* sprite = new sf::Sprite();
@@ -93,6 +99,7 @@ SpriteRenderer* EntityFactory::InstantiateSpriteRenderer(rapidxml::xml_node<>* s
 	return sprite_renderer;
 }
 
+// Instantiates and sets up a component of type AnimatedSprites
 AnimatedSprite* EntityFactory::InstantiateAnimatedSprite(rapidxml::xml_node<>* animated_sprite_node) {
 	AnimatedSprite* animated_sprite = new AnimatedSprite();
 
@@ -110,6 +117,7 @@ AnimatedSprite* EntityFactory::InstantiateAnimatedSprite(rapidxml::xml_node<>* a
 	return animated_sprite;
 }
 
+// Instantiates and sets up a component of type AudioSource
 AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_source_node) {
 	AudioSource* audio_source = new AudioSource();
 	sf::Sound* sound = new sf::Sound();
@@ -123,6 +131,7 @@ AudioSource* EntityFactory::InstantiateAudioSource(rapidxml::xml_node<>* audio_s
 	return audio_source;
 }
 
+// Instantiates and sets up a component of type Interactable, populating it with the correct responses
 Interactable* EntityFactory::InstantiateInteractable(rapidxml::xml_node<>* interactable_node) {
 	Interactable* interactable_ = new Interactable();
 
@@ -135,6 +144,7 @@ Interactable* EntityFactory::InstantiateInteractable(rapidxml::xml_node<>* inter
 	return interactable_;
 }
 
+// Instantiates a response based on the type of response given in the response_node
 IResponse* EntityFactory::InstantiateReponse(rapidxml::xml_node<>* response_node) {
 	IResponse* response = NULL;
 
@@ -152,17 +162,20 @@ IResponse* EntityFactory::InstantiateReponse(rapidxml::xml_node<>* response_node
 	return response;
 }
 
+// Instantiates and sets up a response of type AudioResponse
 AudioResponse* EntityFactory::InstantiateResponse_Audio(rapidxml::xml_node<>* audio_response_node) {
 	AudioResponse* audio_response = new AudioResponse();
 	return audio_response;
 }
 
+// Instantiates and sets up a component of type LoadSceneResponse
 LoadSceneResponse* EntityFactory::InstantiateResponse_LoadScene(rapidxml::xml_node<>* load_scene_response_node) {
 	LoadSceneResponse* load_scene_response = new LoadSceneResponse();
 	load_scene_response->scene_id_ = GetAttributeValue(load_scene_response_node, "nextSceneID");
 	return load_scene_response;
 }
 
+// Instantiates and sets up a component of type TextResponse
 TextResponse* EntityFactory::InstantiateResponse_Text(rapidxml::xml_node<>* text_response_node) {
 	TextResponse* text_response = new TextResponse();
 	
@@ -177,6 +190,8 @@ TextResponse* EntityFactory::InstantiateResponse_Text(rapidxml::xml_node<>* text
 	return text_response;
 }
 
+
+// Initializes the transformable of an entity using the values in the <transform> node
 void EntityFactory::InitializeTransformable(Entity* entity, rapidxml::xml_node<>* node) {
 	rapidxml::xml_node<>* transform_node = FindChildNode(node, "transform");
 	// If there's no transform node, transformable will keep the default values

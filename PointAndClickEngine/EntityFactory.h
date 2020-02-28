@@ -3,6 +3,19 @@
 #include "Entity.h"
 #include "Responses.h"
 
+
+/// EntityFactory is a class of the factory pattern that handles the creation of entity objects
+/// It does so by having some xml handling logic, so the factory is able to read the <gameObject> node and
+/// instantiate the entity and populate it with the correct components, based on the <components> node
+///
+/// Thus the EntityFactory also handles the instantiation of components, doing so by having a different method
+/// for each type of component.
+///
+/// If the component is an Interactable, it's the EntityFactory that handles the creation of that component's responses
+
+
+
+// Forward declaration
 class ResourceManager;
 
 

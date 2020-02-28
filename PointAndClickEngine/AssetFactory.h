@@ -3,6 +3,14 @@
 #include "Assets.h"
 
 
+/// AssetFactory is a class of the factory pattern that handles the creation of asset objects
+/// It does so by having some xml handling logic, so the factory is able to read the <asset> node and
+/// instantiate the correct asset based on the node's information.
+///
+/// The factory has a different method for each type of asset
+
+
+// Forward declaration
 class ResourceManager;
 
 

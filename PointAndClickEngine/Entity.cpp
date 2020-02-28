@@ -8,6 +8,8 @@ Entity::~Entity() {
 	}
 }
 
+// Initializes all components.
+// Used to initializes them after all components have been instantiated and added.
 void Entity::Init() {
 	std::list<IComponent*>::iterator it;
 	for (it = components_.begin(); it != components_.end(); it++) {
@@ -15,6 +17,7 @@ void Entity::Init() {
 	}
 }
 
+// Calls update method of each behaviour
 void Entity::Update() {
 	std::list<IComponent*>::iterator it;
 	for (it = components_.begin(); it != components_.end(); it++) {
@@ -22,11 +25,13 @@ void Entity::Update() {
 	}
 }
 
+
 void Entity::AddComponent(IComponent* component) {
 	component->SetEntity(this);
 	components_.push_back(component);
 }
 
+// Check if entity has a component of given type and returns it.
 IComponent* Entity::GetComponent(ComponentType component_type) {
 	std::list<IComponent*>::iterator it;
 	for (it = components_.begin(); it != components_.end(); it++) {

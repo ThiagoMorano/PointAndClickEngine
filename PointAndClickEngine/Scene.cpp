@@ -17,6 +17,7 @@ void Scene::Update() {
 	}
 }
 
+// Render the objects in the scene, from fartherts (render layer 4) to closest (render layer 0)
 void Scene::Render(sf::RenderWindow* window) {
 	//Those iterations don't have to be backwards as no object would be destroyed during the render cycle
 	std::list<IRenderable*>::iterator it;
@@ -38,6 +39,7 @@ void Scene::Render(sf::RenderWindow* window) {
 	}
 }
 
+// Stop the movement of any character controller
 void Scene::StopScene() {
 	std::list<CharacterController*>::iterator it;
 	for (it = (character_controllers_).begin(); it != character_controllers_.end(); it++) {
@@ -45,6 +47,7 @@ void Scene::StopScene() {
 	}
 }
 
+// Add an entity to the scene, as well as to any of the supporting structures
 void Scene::AddEntity(Entity* entity) {
 	entities_.push_back(entity);
 	if (entity->GetComponent(ComponentType::kSpriteRenderer) != NULL) {
@@ -58,6 +61,7 @@ void Scene::AddEntity(Entity* entity) {
 	}
 }
 
+// Add renderer to the correct layer
 void Scene::AddRenderer(IRenderable* renderable) {
 	switch (renderable->GetRenderLayer()) {
 	case 0:
@@ -78,6 +82,7 @@ void Scene::AddRenderer(IRenderable* renderable) {
 	}
 }
 
+// Used to check whether any of the character controllers are overlapping the given sprite renderer
 bool Scene::CheckOverlapWithCharacterController(SpriteRenderer* sprite_renderer) {
 	std::list<CharacterController*>::iterator it;
 	for (it = character_controllers_.begin(); it != character_controllers_.end(); it++) {

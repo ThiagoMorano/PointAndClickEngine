@@ -23,12 +23,11 @@ public:
 	void Init(sf::RenderWindow*, ResourceManager*);
 	void GameLoop();
 
-	bool CheckOverlapWithCharacterController(SpriteRenderer*);
-
 	void LoadSceneOfID(std::string);
 	void LoadScene(Scene*);
 
 	void ActivateText(sf::Text*, float);
+	bool CheckOverlapWithCharacterController(SpriteRenderer*);
 
 	sf::RenderWindow* window_;
 	ResourceManager* resource_manager_;
@@ -45,5 +44,4 @@ private:
 
 	void Update();
 	void Render();
-	void RenderActiveObjects();
 };
